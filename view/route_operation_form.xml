@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<form string="Route Operation">
+    <label name="route"/>
+    <field name="route"/>
+    <newline/>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="work_center"/>
+    <field name="work_center"/>
+    <label name="sequence"/>
+    <field name="sequence"/>
+</form>

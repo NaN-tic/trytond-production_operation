@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="production_route_operation_view_form">
+            <field name="model">production.route.operation</field>
+            <field name="type">form</field>
+            <field name="name">route_operation_form</field>
+        </record>
+        <record model="ir.ui.view" id="production_route_operation_view_list">
+            <field name="model">production.route.operation</field>
+            <field name="type">tree</field>
+            <field name="name">route_operation_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_production_route_operation">
+            <field name="name">Route Operation</field>
+            <field name="res_model">production.route.operation</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_route_operation_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="production_route_operation_view_list"/>
+            <field name="act_window" ref="act_production_route_operation"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_route_operation_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="production_route_operation_view_form"/>
+            <field name="act_window" ref="act_production_route_operation"/>
+        </record>
+        <record model="ir.model.access" id="access_production_route_operation">
+            <field name="model" search="[('model', '=', 'production.route.operation')]"/>
+            <field name="group" ref="production.group_production"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_production_route_operation_admin">
+            <field name="model" search="[('model', '=', 'production.route.operation')]"/>
+            <field name="group" ref="production.group_production_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.ui.view" id="production_operation_view_form">
+            <field name="model">production.operation</field>
+            <field name="type">form</field>
+            <field name="name">operation_form</field>
+        </record>
+        <record model="ir.ui.view" id="production_operation_view_list">
+            <field name="model">production.operation</field>
+            <field name="type">tree</field>
+            <field name="name">operation_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_production_operation">
+            <field name="name">Operation</field>
+            <field name="res_model">production.operation</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_operation_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="production_operation_view_list"/>
+            <field name="act_window" ref="act_production_operation"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_operation_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="production_operation_view_form"/>
+            <field name="act_window" ref="act_production_operation"/>
+        </record>
+        <record model="ir.model.access" id="access_production_operation">
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="group" ref="production.group_production"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.ui.view" id="production_operation_line_view_form">
+            <field name="model">production.operation.line</field>
+            <field name="type">form</field>
+            <field name="name">operation_line_form</field>
+        </record>
+        <record model="ir.ui.view" id="production_operation_line_view_list">
+            <field name="model">production.operation.line</field>
+            <field name="type">tree</field>
+            <field name="name">operation_line_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_production_operation_line">
+            <field name="name">Operation Line</field>
+            <field name="res_model">production.operation.line</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_operation_line_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="production_operation_line_view_list"/>
+            <field name="act_window" ref="act_production_operation_line"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_operation_line_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="production_operation_line_view_form"/>
+            <field name="act_window" ref="act_production_operation_line"/>
+        </record>
+        <record model="ir.model.access" id="access_production_operation_line">
+            <field name="model" search="[('model', '=', 'production.operation.line')]"/>
+            <field name="group" ref="production.group_production"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.ui.view" id="production_work_center_view_form">
+            <field name="model">production.work_center</field>
+            <field name="type">form</field>
+            <field name="name">work_center_form</field>
+        </record>
+        <record model="ir.ui.view" id="production_work_center_view_list">
+            <field name="model">production.work_center</field>
+            <field name="type">tree</field>
+            <field name="name">work_center_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_production_work_center">
+            <field name="name">Work Center</field>
+            <field name="res_model">production.work_center</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_work_center_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="production_work_center_view_list"/>
+            <field name="act_window" ref="act_production_work_center"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_work_center_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="production_work_center_view_form"/>
+            <field name="act_window" ref="act_production_work_center"/>
+        </record>
+        <record model="ir.model.access" id="access_production_work_center">
+            <field name="model" search="[('model', '=', 'production.work_center')]"/>
+            <field name="group" ref="production.group_production"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_production_work_center_admin">
+            <field name="model" search="[('model', '=', 'production.work_center')]"/>
+            <field name="group" ref="production.group_production_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.ui.view" id="production_work_center_category_view_form">
+            <field name="model">production.work_center.category</field>
+            <field name="type">form</field>
+            <field name="name">work_center_category_form</field>
+        </record>
+        <record model="ir.ui.view" id="production_work_center_category_view_list">
+            <field name="model">production.work_center.category</field>
+            <field name="type">tree</field>
+            <field name="name">work_center_category_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_production_work_center_category">
+            <field name="name">Work Center Category</field>
+            <field name="res_model">production.work_center.category</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_work_center_category_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="production_work_center_category_view_list"/>
+            <field name="act_window" ref="act_production_work_center_category"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_work_center_category_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="production_work_center_category_view_form"/>
+            <field name="act_window" ref="act_production_work_center_category"/>
+        </record>
+        <record model="ir.model.access" id="access_production_work_center_category">
+            <field name="model" search="[('model', '=', 'production.work_center.category')]"/>
+            <field name="group" ref="production.group_production"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_production_work_center_category_admin">
+            <field name="model" search="[('model', '=', 'production.work_center.category')]"/>
+            <field name="group" ref="production.group_production_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.ui.view" id="production_view_form">
+            <field name="model">production</field>
+            <field name="type">form</field>
+            <field name="inherit" ref="production.production_view_form"/>
+            <field name="name">production_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="production_route_view_form">
+            <field name="model">production.route</field>
+            <field name="type">form</field>
+            <field name="name">route_form</field>
+        </record>
+        <record model="ir.ui.view" id="production_route_view_list">
+            <field name="model">production.route</field>
+            <field name="type">tree</field>
+            <field name="name">route_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_production_route">
+            <field name="name">Route</field>
+            <field name="res_model">production.route</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_route_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="production_route_view_list"/>
+            <field name="act_window" ref="act_production_route"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_production_route_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="production_route_view_form"/>
+            <field name="act_window" ref="act_production_route"/>
+        </record>
+        <record model="ir.model.access" id="access_production_route">
+            <field name="model" search="[('model', '=', 'production.route')]"/>
+            <field name="group" ref="production.group_production"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_production_route_admin">
+            <field name="model" search="[('model', '=', 'production.route')]"/>
+            <field name="group" ref="production.group_production_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <!-- Menus -->
+        <menuitem action="act_production_route"
+            id="menu_production_route"
+            parent="production.menu_configuration"
+            sequence="30"
+            name="Routes"/>
+        <menuitem action="act_production_work_center_category"
+            id="menu_production_work_center_category"
+            parent="menu_production_route"
+            sequence="10"
+            name="Work Center Categories"/>
+        <menuitem action="act_production_work_center"
+            id="menu_production_work_center"
+            parent="menu_production_route"
+            sequence="20"
+            name="Work Centers"/>
+    </data>
+</tryton>
