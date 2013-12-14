@@ -13,6 +13,8 @@ class WorkCenterCategory(ModelSQL, ModelView):
     'Work Center Category'
     __name__ = 'production.work_center.category'
     name = fields.Char('Name', required=True)
+    cost_price = fields.Numeric('Cost Price', digits=(16, 4), required=True)
+    uom = fields.Many2One('product.uom', 'Uom', required=True)
 
 
 class WorkCenter(ModelSQL, ModelView):
@@ -39,6 +41,13 @@ class Route(ModelSQL, ModelView):
     operations = fields.One2Many('production.route.operation', 'bom',
         'Operations')
 
+class OperationType(ModelSQL, ModelView):
+    'Operation Type'
+    __name__ = 'production.operation.type'
+
+    name = fields.Char('Name', required=True)
+
+
 
 class RouteOperation(ModelSQL, ModelView):
     'Route Operation'
@@ -47,6 +56,8 @@ class RouteOperation(ModelSQL, ModelView):
     name = fields.Char('Name', required=True)
     sequence = fields.Integer('Sequence')
     work_center = fields.Many2One('production.work_center', 'Work Center')
+    work_center_category = fields.Many2One('production.work_center', 'Work Center')
+    operation_type = fields.Many2One('production.operation.type', 'Operation Type')
 
     @classmethod
     def __setup__(cls):
@@ -70,6 +81,7 @@ class Operation(ModelSQL, ModelView):
         'Route Operation')
     lines = fields.One2Many('production.operation.line', 'operation', 'Lines')
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
+    operation_type = fields.Many2One('production.operation.type', 'Operation Type')
 
     # TODO: Add workflow
 
