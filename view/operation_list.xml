@@ -3,6 +3,7 @@
      copyright notices and license terms. -->
 <tree string="Operation" sequence="sequence">
     <field name="production"/>
-    <field name="name"/>
+    <field name="operation_type"/>
     <field name="work_center"/>
+    <field name="state"/>
 </tree>

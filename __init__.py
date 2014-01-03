@@ -4,13 +4,10 @@
 from trytond.pool import Pool
 from .operation import *
 
+
 def register():
     Pool.register(
-        WorkCenterCategory,
-        WorkCenter,
-        Route,
-        RouteOperation,
         Operation,
-        OperationLine,
+        OperationTracking,
         Production,
         module='production_operation', type_='model')

@@ -2,14 +2,25 @@
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <form string="Operation">
+    <label name="operation_type"/>
+    <field name="operation_type"/>
     <label name="production"/>
     <field name="production"/>
-    <newline/>
-    <label name="name"/>
-    <field name="name"/>
     <label name="work_center"/>
     <field name="work_center"/>
     <label name="sequence"/>
     <field name="sequence"/>
     <field name="lines" colspan="4"/>
+    <group col="4" colspan="4" id="state_buttons">
+        <label name="state"/>
+        <field name="state"/>
+        <group col="6" colspan="2" id="buttons">
+            <button name="wait" string="Wait"/>
+            <button name="run" string="Run"
+                icon="tryton-go-next"/>
+            <button name="done" string="Done"
+                icon="tryton-go-next"/>
+        </group>
+    </group>
+    <field name="uom_category" invisible="1"/>
 </form>

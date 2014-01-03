@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<tree string="Route Operation" sequence="sequence">
-    <field name="name"/>
-    <field name="work_center"/>
-</tree>
+<data>
+    <xpath expr="/tree/field[@name='work_center_category']" position="before">
+        <field name="operation_type"/>
+    </xpath>
+</data>
