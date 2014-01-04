@@ -5,5 +5,6 @@
     <field name="production"/>
     <field name="operation_type"/>
     <field name="work_center"/>
+    <field name="work_center_category"/>
     <field name="state"/>
 </tree>

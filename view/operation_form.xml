@@ -8,6 +8,8 @@
     <field name="production"/>
     <label name="work_center"/>
     <field name="work_center"/>
+    <label name="work_center_category"/>
+    <field name="work_center_category"/>
     <label name="sequence"/>
     <field name="sequence"/>
     <field name="lines" colspan="4"/>

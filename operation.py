@@ -21,6 +21,8 @@ class Operation(Workflow, ModelSQL, ModelView):
     production = fields.Many2One('production', 'Production', required=True,
         states=STATES, depends=DEPENDS)
     sequence = fields.Integer('Sequence', states=STATES, depends=DEPENDS)
+    work_center_category = fields.Many2One('production.work_center.category',
+        'Work Center Category', states=STATES, depends=DEPENDS)
     work_center = fields.Many2One('production.work_center', 'Work Center',
         states=STATES, depends=DEPENDS)
     route_operation = fields.Many2One('production.route.operation',
