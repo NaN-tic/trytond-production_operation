@@ -168,17 +168,15 @@ class OperationTracking(ModelSQL, ModelView):
 
     @staticmethod
     def default_uom():
-        pool = Pool()
-        WorkCenter = pool.get('production.work_center')
+        WorkCenter = Pool().get('production.work_center')
 
         context = Transaction().context
-        if 'work_center' in context:
+        if context.get('work_center'):
             work_center = WorkCenter(context['work_center'])
             return work_center.uom.id
 
     def get_cost(self, name):
-        pool = Pool()
-        Uom = pool.get('product.uom')
+        Uom = Pool().get('product.uom')
         work_center = self.operation.work_center
         if not work_center:
             return Decimal('0.0')
