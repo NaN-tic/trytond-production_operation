@@ -187,7 +187,8 @@ class OperationTracking(ModelSQL, ModelView):
 
     def get_cost(self, name):
         Uom = Pool().get('product.uom')
-        work_center = self.operation.work_center
+        work_center = (self.operation.work_center or
+            self.operation.work_center_category)
         if not work_center:
             return Decimal('0.0')
         quantity = Uom.compute_qty(self.uom, self.quantity,
@@ -293,6 +294,8 @@ class Production:
 
         for production in productions:
             operation_cost = sum(o.cost for o in production.operations)
+            if operation_cost == Decimal('0.0'):
+                continue
             total_quantity = Decimal(str(sum(o.quantity for o in
                         production.outputs)))
             added_unit_price = Decimal(operation_cost / total_quantity

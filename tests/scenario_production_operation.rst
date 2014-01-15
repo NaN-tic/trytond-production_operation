@@ -243,6 +243,8 @@ Make a production::
     >>> production.reload()
     >>> all(i.state == 'done' for i in production.inputs)
     True
+    >>> all(o.state == 'waiting' for o in production.operations)
+    True
     >>> Production.done([production.id], config.context)
     Traceback (most recent call last):
         ...
