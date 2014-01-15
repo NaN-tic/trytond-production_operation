@@ -22,13 +22,16 @@ class Operation(Workflow, ModelSQL, ModelView):
         states=STATES, depends=DEPENDS)
     sequence = fields.Integer('Sequence', states=STATES, depends=DEPENDS)
     work_center_category = fields.Many2One('production.work_center.category',
-        'Work Center Category', states=STATES, depends=DEPENDS)
+        'Work Center Category', states=STATES, depends=DEPENDS, required=True)
     work_center = fields.Many2One('production.work_center', 'Work Center',
-        states=STATES, depends=DEPENDS)
+        states=STATES, depends=DEPENDS + ['work_center_category'], domain=[
+            ('category', '=', Eval('work_center_category'),
+            )])
     route_operation = fields.Many2One('production.route.operation',
         'Route Operation', states=STATES, depends=DEPENDS)
     lines = fields.One2Many('production.operation.tracking', 'operation',
         'Lines', states=STATES, depends=DEPENDS, context={
+            'work_center_category': Eval('work_center_category'),
             'work_center': Eval('work_center'),
             })
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
@@ -36,7 +39,7 @@ class Operation(Workflow, ModelSQL, ModelView):
         'Operation Type', states=STATES, depends=DEPENDS, required=True)
     uom_category = fields.Function(fields.Many2One(
             'product.uom.category', 'Uom Category', on_change_with=[
-                'work_center']),
+                'work_center_category', 'work_center']),
         'on_change_with_uom_category')
     state = fields.Selection([
             ('planned', 'Planned'),
@@ -49,7 +52,7 @@ class Operation(Workflow, ModelSQL, ModelView):
     def __setup__(cls):
         super(Operation, cls).__setup__()
         cls._order.insert(0, ('sequence', 'ASC'))
-        cls._invalid_production_states_on_create = ['running', 'done']
+        cls._invalid_production_states_on_create = ['done']
         cls._error_messages.update({
                 'invalid_production_state': ('You can not create an operation'
                     ' for Production "%s".'),
@@ -62,8 +65,9 @@ class Operation(Workflow, ModelSQL, ModelView):
                 ))
         cls._buttons.update({
                 'wait': {
-                    'invisible': Eval('state') != 'running',
-                    'icon': 'tryton-go-previous',
+                    'invisible': ~Eval('state').in_(['planned', 'running']),
+                    'icon': If(Eval('state') == 'running',
+                        'tryton-go-previous', 'tryton-go-next')
                     },
                 'run': {
                     'invisible': Eval('state') != 'waiting',
@@ -88,6 +92,8 @@ class Operation(Workflow, ModelSQL, ModelView):
         return [('operation_type.name',) + tuple(clause[1:])]
 
     def on_change_with_uom_category(self, name=None):
+        if self.work_center_category:
+            return self.work_center_category.uom.category.id
         if self.work_center:
             return self.work_center.uom.category.id
 
@@ -169,11 +175,15 @@ class OperationTracking(ModelSQL, ModelView):
     @staticmethod
     def default_uom():
         WorkCenter = Pool().get('production.work_center')
+        WorkCenterCategory = Pool().get('production.work_center.category')
 
         context = Transaction().context
         if context.get('work_center'):
             work_center = WorkCenter(context['work_center'])
             return work_center.uom.id
+        if context.get('work_center_category'):
+            category = WorkCenterCategory(context['work_center_category'])
+            return category.uom.id
 
     def get_cost(self, name):
         Uom = Pool().get('product.uom')
@@ -230,6 +240,7 @@ class Production:
         for operation in self.route.operations:
             operations['add'].append({
                     'sequence': operation.sequence,
+                    'work_center_category': operation.work_center_category.id,
                     'work_center': (operation.work_center.id
                         if operation.work_center else None),
                     'operation_type': (operation.operation_type.id
