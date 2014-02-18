@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tryton>
     <data>
-
-        <record model="ir.ui.view" id="production_route_operation_view_form">
-            <field name="model">production.route.operation</field>
-            <field name="type">form</field>
-            <field name="name">route_operation_form</field>
-            <field name="inherit"
-                ref="production_route.production_route_operation_view_form" />
-        </record>
-        <record model="ir.ui.view" id="production_route_operation_view_list">
-            <field name="model">production.route.operation</field>
-            <field name="type">tree</field>
-            <field name="name">route_operation_list</field>
-            <field name="inherit"
-                ref="production_route.production_route_operation_view_list" />
-        </record>
-
+        <!-- production.operation -->
         <record model="ir.ui.view" id="production_operation_view_form">
             <field name="model">production.operation</field>
             <field name="type">form</field>
@@ -27,6 +12,7 @@
             <field name="type">tree</field>
             <field name="name">operation_list</field>
         </record>
+
         <record model="ir.action.act_window" id="act_production_operation">
             <field name="name">Operation</field>
             <field name="res_model">production.operation</field>
@@ -43,6 +29,7 @@
             <field name="view" ref="production_operation_view_form"/>
             <field name="act_window" ref="act_production_operation"/>
         </record>
+
         <record model="ir.action.act_window.domain"
                 id="act_production_operation_domain_waiting">
             <field name="name">Waiting</field>
@@ -64,6 +51,7 @@
             <field name="domain"></field>
             <field name="act_window" ref="act_production_operation"/>
         </record>
+
         <record model="ir.model.access" id="access_production_operation">
             <field name="model"
                 search="[('model', '=', 'production.operation')]"/>
@@ -73,6 +61,8 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_delete" eval="True"/>
         </record>
+
+        <!-- production.operation.tracking -->
         <record model="ir.ui.view" id="production_operation_tracking_view_form">
             <field name="model">production.operation.tracking</field>
             <field name="type">form</field>
@@ -83,6 +73,7 @@
             <field name="type">tree</field>
             <field name="name">operation_tracking_list</field>
         </record>
+
         <record model="ir.action.act_window"
                 id="act_production_operation_tracking">
             <field name="name">Operation Tracking</field>
@@ -100,6 +91,7 @@
             <field name="view" ref="production_operation_tracking_view_form"/>
             <field name="act_window" ref="act_production_operation_tracking"/>
         </record>
+
         <record model="ir.model.access"
                 id="access_production_operation_tracking">
             <field name="model"
@@ -111,6 +103,7 @@
             <field name="perm_delete" eval="True"/>
         </record>
 
+        <!-- production -->
         <record model="ir.ui.view" id="production_view_form">
             <field name="model">production</field>
             <field name="type">form</field>
@@ -118,11 +111,11 @@
             <field name="name">production_form</field>
         </record>
 
+        <!-- menus -->
         <menuitem action="act_production_operation"
             id="menu_production_operation"
             parent="production.menu_production_list"
             sequence="10"
             name="Operations"/>
-
     </data>
 </tryton>
