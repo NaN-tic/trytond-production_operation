@@ -73,9 +73,10 @@ Create a route with two operations on diferent work center::
     >>> RouteOperation = Model.get('production.route.operation')
     >>> assembly = OperationType(name='Assembly')
     >>> assembly.save()
-    >>> clean = OperationType(name='clean')
-    >>> clean.save()
+    >>> cleaning = OperationType(name='Cleaning')
+    >>> cleaning.save()
     >>> hour, = ProductUom.find([('name', '=', 'Hour')])
+    >>> unit, = ProductUom.find([('name', '=', 'Unit')])
     >>> WorkCenter = Model.get('production.work_center')
     >>> WorkCenterCategory = Model.get('production.work_center.category')
     >>> category = WorkCenterCategory()
@@ -99,20 +100,24 @@ Create a route with two operations on diferent work center::
     >>> workcenter2.cost_price = Decimal('50.0')
     >>> workcenter2.save()
     >>> route = Route(name='default route')
+    >>> route.uom = unit
     >>> route_operation = RouteOperation()
     >>> route.operations.append(route_operation)
     >>> route_operation.sequence = 1
     >>> route_operation.operation_type = assembly
     >>> route_operation.work_center_category = category
     >>> route_operation.work_center = workcenter1
-    >>> route_operation.quantity = 1
+    >>> route_operation.time = 1
+    >>> route_operation.quantity = 3
+    >>> route_operation.quantity_uom = unit
     >>> route_operation = RouteOperation()
     >>> route.operations.append(route_operation)
     >>> route_operation.sequence = 2
-    >>> route_operation.operation_type = clean
+    >>> route_operation.operation_type = cleaning
+    >>> route_operation.calculation = 'fixed'
     >>> route_operation.work_center_category = category
     >>> route_operation.work_center = workcenter2
-    >>> route_operation.quantity = 1
+    >>> route_operation.time = 1
     >>> route.save()
     >>> route.reload()
     >>> len(route.operations) == 2
@@ -121,7 +126,6 @@ Create a route with two operations on diferent work center::
 
 Create product::
 
-    >>> unit, = ProductUom.find([('name', '=', 'Unit')])
     >>> ProductTemplate = Model.get('product.template')
     >>> Product = Model.get('product.product')
     >>> product = Product()
@@ -218,7 +222,8 @@ Make a production::
     >>> production.route = route
     >>> len(production.operations) == 2
     True
-    >>> [o.operation_type for o in production.operations] == [assembly, clean]
+    >>> [o.operation_type for o in production.operations] == [assembly,
+    ...     cleaning]
     True
     >>> production.bom = bom
     >>> production.quantity = 2

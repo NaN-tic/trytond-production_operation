@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from trytond.model import fields, ModelSQL, ModelView, Workflow
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If, Bool
+from trytond.pyson import Eval, If, Bool, Id
 from trytond.transaction import Transaction
 
 __all__ = ['Operation', 'OperationTracking', 'Production']
@@ -158,10 +158,8 @@ class OperationTracking(ModelSQL, ModelView):
         required=True)
     uom = fields.Many2One('product.uom', 'Uom', required=True,
         on_change_with=['operation'], domain=[
-            If(Bool(Eval('_parent_operation', 0)),
-                ('category', '=', Eval('_parent_operation', {}).get(
-                        'uom_category', 0)), (),
-                )])
+            ('category', '=', Id('product', 'uom_cat_time')),
+            ])
     unit_digits = fields.Function(fields.Integer('Unit Digits',
             on_change_with=['uom']), 'on_change_with_unit_digits')
     quantity = fields.Float('Quantity', required=True,
@@ -196,7 +194,7 @@ class OperationTracking(ModelSQL, ModelView):
         return Decimal(str(quantity)) * work_center.cost_price
 
     def on_change_with_uom(self):
-        if self.operation.work_center:
+        if self.operation and self.operation.work_center:
             return self.operation.work_center.uom.id
 
     def on_change_with_unit_digits(self, name=None):
