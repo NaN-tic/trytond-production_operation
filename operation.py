@@ -113,7 +113,15 @@ class Operation(Workflow, ModelSQL, ModelView):
             production, = invalid_productions
             cls.raise_user_error('invalid_production_state',
                 production.rec_name)
-        super(Operation, cls).create(vlist)
+        return super(Operation, cls).create(vlist)
+
+    @classmethod
+    def copy(cls, operations, default=None):
+        if default is None:
+            default = {}
+        default.setdefault('state', 'planned')
+        default.setdefault('lines', [])
+        return super(Operation, cls).copy(operations, default)
 
     @staticmethod
     def order_sequence(tables):
