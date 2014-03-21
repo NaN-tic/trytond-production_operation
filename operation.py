@@ -19,7 +19,7 @@ class Operation(Workflow, ModelSQL, ModelView):
     __name__ = 'production.operation'
 
     production = fields.Many2One('production', 'Production', required=True,
-        states=STATES, depends=DEPENDS)
+        states=STATES, depends=DEPENDS, ondelete='CASCADE')
     sequence = fields.Integer('Sequence', states=STATES, depends=DEPENDS)
     work_center_category = fields.Many2One('production.work_center.category',
         'Work Center Category', states=STATES, depends=DEPENDS, required=True)
