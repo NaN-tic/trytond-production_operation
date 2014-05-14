@@ -317,3 +317,12 @@ class Production:
         for operation in self.operations:
             cost += operation.cost
         return cost
+
+    @classmethod
+    def compute_request(cls, product, warehouse, quantity, date, company):
+        "Inherited from stock_supply_production"
+        production = super(Production, cls).compute_request(product,
+            warehouse, quantity, date, company)
+        if product.boms:
+            production.route = product.boms[0].route
+        return production
