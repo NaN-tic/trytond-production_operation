@@ -38,8 +38,7 @@ class Operation(Workflow, ModelSQL, ModelView):
     operation_type = fields.Many2One('production.operation.type',
         'Operation Type', states=STATES, depends=DEPENDS, required=True)
     uom_category = fields.Function(fields.Many2One(
-            'product.uom.category', 'Uom Category', on_change_with=[
-                'work_center_category', 'work_center']),
+            'product.uom.category', 'Uom Category'),
         'on_change_with_uom_category')
     state = fields.Selection([
             ('planned', 'Planned'),
@@ -91,6 +90,7 @@ class Operation(Workflow, ModelSQL, ModelView):
     def search_rec_name(cls, name, clause):
         return [('operation_type.name',) + tuple(clause[1:])]
 
+    @fields.depends('work_center_category', 'work_center')
     def on_change_with_uom_category(self, name=None):
         if self.work_center_category:
             return self.work_center_category.uom.category.id
@@ -165,11 +165,11 @@ class OperationTracking(ModelSQL, ModelView):
     operation = fields.Many2One('production.operation', 'Operation',
         required=True)
     uom = fields.Many2One('product.uom', 'Uom', required=True,
-        on_change_with=['operation'], domain=[
+        domain=[
             ('category', '=', Id('product', 'uom_cat_time')),
             ])
-    unit_digits = fields.Function(fields.Integer('Unit Digits',
-            on_change_with=['uom']), 'on_change_with_unit_digits')
+    unit_digits = fields.Function(fields.Integer('Unit Digits'),
+        'on_change_with_unit_digits')
     quantity = fields.Float('Quantity', required=True,
         digits=(16, Eval('unit_digits', 2)), depends=['unit_digits'])
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
@@ -201,10 +201,12 @@ class OperationTracking(ModelSQL, ModelView):
             work_center.uom)
         return Decimal(str(quantity)) * work_center.cost_price
 
+    @fields.depends('operation')
     def on_change_with_uom(self):
         if self.operation and self.operation.work_center:
             return self.operation.work_center.uom.id
 
+    @fields.depends('uom')
     def on_change_with_unit_digits(self, name=None):
         if self.uom:
             return self.uom.digits
@@ -215,7 +217,7 @@ class Production:
     __name__ = 'production'
 
     route = fields.Many2One('production.route', 'Route',
-        on_change=['route', 'operations'], states={
+        states={
             'readonly': ~Eval('state').in_(['request', 'draft']),
             })
     operations = fields.One2Many('production.operation', 'production',
@@ -244,18 +246,20 @@ class Production:
         changes = {
             'operations': operations,
             }
-        for operation in self.route.operations:
-            operations['add'].append({
-                    'sequence': operation.sequence,
-                    'work_center_category': operation.work_center_category.id,
-                    'work_center': (operation.work_center.id
-                        if operation.work_center else None),
-                    'operation_type': (operation.operation_type.id
-                        if operation.operation_type else None),
-                    'route_operation': operation.id,
-                    })
+        for index, operation in enumerate(self.route.operations):
+            operations['add'].append((index, {
+                        'sequence': operation.sequence,
+                        'work_center_category': (
+                            operation.work_center_category.id),
+                        'work_center': (operation.work_center.id
+                            if operation.work_center else None),
+                        'operation_type': (operation.operation_type.id
+                            if operation.operation_type else None),
+                        'route_operation': operation.id,
+                        }))
         return changes
 
+    @fields.depends('route', 'operations')
     def on_change_route(self):
         return self.update_operations()
 
