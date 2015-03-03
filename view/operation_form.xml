@@ -24,5 +24,4 @@
                 icon="tryton-go-next"/>
         </group>
     </group>
-    <field name="uom_category" invisible="1"/>
 </form>
