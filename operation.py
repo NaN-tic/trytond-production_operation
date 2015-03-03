@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from trytond.model import fields, ModelSQL, ModelView, Workflow
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If, Bool, Id
+from trytond.pyson import Eval, If, Id
 from trytond.transaction import Transaction
 
 __all__ = ['Operation', 'OperationTracking', 'Production']
@@ -37,9 +37,6 @@ class Operation(Workflow, ModelSQL, ModelView):
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
     operation_type = fields.Many2One('production.operation.type',
         'Operation Type', states=STATES, depends=DEPENDS, required=True)
-    uom_category = fields.Function(fields.Many2One(
-            'product.uom.category', 'Uom Category'),
-        'on_change_with_uom_category')
     state = fields.Selection([
             ('planned', 'Planned'),
             ('waiting', 'Waiting'),
@@ -89,13 +86,6 @@ class Operation(Workflow, ModelSQL, ModelView):
     @classmethod
     def search_rec_name(cls, name, clause):
         return [('operation_type.name',) + tuple(clause[1:])]
-
-    @fields.depends('work_center_category', 'work_center')
-    def on_change_with_uom_category(self, name=None):
-        if self.work_center_category:
-            return self.work_center_category.uom.category.id
-        if self.work_center:
-            return self.work_center.uom.category.id
 
     @classmethod
     def create(cls, vlist):
@@ -163,7 +153,7 @@ class OperationTracking(ModelSQL, ModelView):
     __name__ = 'production.operation.tracking'
 
     operation = fields.Many2One('production.operation', 'Operation',
-        required=True)
+        required=True, ondelete='CASCADE')
     uom = fields.Many2One('product.uom', 'Uom', required=True,
         domain=[
             ('category', '=', Id('product', 'uom_cat_time')),
@@ -247,17 +237,20 @@ class Production:
             'operations': operations,
             }
         for index, operation in enumerate(self.route.operations):
-            operations['add'].append((index, {
-                        'sequence': operation.sequence,
-                        'work_center_category': (
-                            operation.work_center_category.id),
-                        'work_center': (operation.work_center.id
-                            if operation.work_center else None),
-                        'operation_type': (operation.operation_type.id
-                            if operation.operation_type else None),
-                        'route_operation': operation.id,
-                        }))
+            operation_vals = self._get_operation_vals(operation)
+            operations['add'].append((index, operation_vals))
         return changes
+
+    def _get_operation_vals(self, route_operation):
+        return {
+            'sequence': route_operation.sequence,
+            'work_center_category': route_operation.work_center_category.id,
+            'work_center': (route_operation.work_center.id
+                if route_operation.work_center else None),
+            'operation_type': (route_operation.operation_type.id
+                if route_operation.operation_type else None),
+            'route_operation': route_operation.id,
+            }
 
     @fields.depends('route', 'operations')
     def on_change_route(self):
