@@ -320,6 +320,26 @@ class Production:
         "Inherited from stock_supply_production"
         production = super(Production, cls).compute_request(product,
             warehouse, quantity, date, company)
-        if product.boms:
+        if product.boms and product.boms[0].route:
             production.route = product.boms[0].route
+            # TODO: it should be called next to set_moves()
+            production.set_operations()
         return production
+
+    def set_operations(self):
+        if not self.route:
+            return
+
+        self.operations = []
+        for route_operation in self.route.operations:
+            self.operations.append(self._operation(route_operation))
+
+    def _operation(self, route_operation):
+        Operation = Pool().get('production.operation')
+        return Operation(
+            sequence=route_operation.sequence,
+            work_center_category=route_operation.work_center_category,
+            work_center=route_operation.work_center,
+            operation_type=route_operation.operation_type,
+            route_operation=route_operation,
+            )
