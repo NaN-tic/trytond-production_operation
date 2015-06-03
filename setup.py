@@ -8,7 +8,9 @@ import ConfigParser
 
 MODULE = 'production_operation'
 PREFIX = 'nantic'
-MODULE2PREFIX = {}
+MODULE2PREFIX = {
+    'production_route': 'nantic',
+}
 
 
 def read(fname):
