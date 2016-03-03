@@ -79,9 +79,12 @@ class Operation(Workflow, ModelSQL, ModelView):
         return 'planned'
 
     def get_rec_name(self, name):
+        res = ''
         if self.operation_type:
-            return self.operation_type.rec_name
-        return super(Operation, self).get_rec_name()
+            res = self.operation_type.rec_name + ' @ '
+        if self.production:
+            res += self.production.rec_name
+        return res
 
     @classmethod
     def search_rec_name(cls, name, clause):
