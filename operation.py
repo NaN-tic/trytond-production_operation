@@ -91,7 +91,10 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     def search_rec_name(cls, name, clause):
-        return [('operation_type.name',) + tuple(clause[1:])]
+        return ['OR',
+            ('operation_type.name',) + tuple(clause[1:]),
+            ('production',) + tuple(clause[1:]),
+            ]
 
     @classmethod
     def create(cls, vlist):
