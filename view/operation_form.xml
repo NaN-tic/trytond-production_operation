@@ -12,7 +12,11 @@
     <field name="work_center_category"/>
     <label name="sequence"/>
     <field name="sequence"/>
-    <field name="lines" colspan="4"/>
+    <notebook colspan="6">
+        <page string="Lines" id="lines">
+            <field name="lines" colspan="4"/>
+        </page>
+    </notebook>
     <group col="4" colspan="4" id="state_buttons">
         <label name="state"/>
         <field name="state"/>
