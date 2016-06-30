@@ -226,35 +226,22 @@ class Production:
                     'Operation "%s".'),
                 })
 
-    def update_operations(self):
-        if not self.route:
-            return {}
-        operations = {
-            'remove': [x.id for x in self.operations],
-            'add': [],
-            }
-        changes = {
-            'operations': operations,
-            }
-        for index, operation in enumerate(self.route.operations):
-            operation_vals = self._get_operation_vals(operation)
-            operations['add'].append((index, operation_vals))
-        return changes
-
-    def _get_operation_vals(self, route_operation):
-        return {
-            'sequence': route_operation.sequence,
-            'work_center_category': route_operation.work_center_category.id,
-            'work_center': (route_operation.work_center.id
-                if route_operation.work_center else None),
-            'operation_type': (route_operation.operation_type.id
-                if route_operation.operation_type else None),
-            'route_operation': route_operation.id,
-            }
-
     @fields.depends('route', 'operations')
     def on_change_route(self):
-        return self.update_operations()
+        Operation = Pool().get('production.operation')
+
+        operations = []
+        if self.route:
+            for operation in self.route.operations:
+                operation = Operation(
+                    sequence=operation.sequence,
+                    work_center_category=operation.work_center_category,
+                    work_center=operation.work_center,
+                    operation_type=operation.operation_type,
+                    route_operation=operation,
+                    )
+                operations.append(operation)
+            self.operations = operations
 
     @classmethod
     def run(cls, productions):
