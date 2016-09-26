@@ -143,9 +143,16 @@ class Operation(Workflow, ModelSQL, ModelView):
 
         productions = set([o.production for o in operations])
         cls.write(operations, {'state': 'done'})
-
-        with Transaction().set_context(from_done_operation=True):
-            Production.done(productions)
+        to_done = []
+        for production in productions:
+            to_do = True
+            for operation in production.operations:
+                if operation.state != 'done':
+                    to_do = False
+                    break
+            if to_do:
+                to_done.append(production)
+        Production.done(to_done)
 
 
 class OperationTracking(ModelSQL, ModelView):
@@ -282,8 +289,6 @@ class Production:
                 ('state', '!=', 'done'),
                 ], limit=1)
         if pending_operations:
-            if Transaction().context.get('from_done_operation', False):
-                return productions
             operation, = pending_operations
             cls.raise_user_error('pending_operations', error_args={
                     'production': operation.production.rec_name,
