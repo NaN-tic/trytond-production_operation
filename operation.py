@@ -289,7 +289,7 @@ class Production:
                 ], limit=1)
         if pending_operations:
             if Transaction().context.get('from_done_operation', False):
-                return
+                return productions
             operation, = pending_operations
             cls.raise_user_error('pending_operations', error_args={
                     'production': operation.production.rec_name,
