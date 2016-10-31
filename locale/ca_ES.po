@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -14,6 +14,10 @@ msgstr ""
 "No es pot realitzar la producció \"%(production)s\" perquè la seva operació "
 "\"%(operation)s\" no està realitzada."
 
+msgctxt "error:production:"
+msgid "We can not found any work center for Operation \"%s\"."
+msgstr "No s'ha trobat cap centre de treball per l'operació \"%s\"."
+
 msgctxt "field:production,operations:"
 msgid "Operations"
 msgstr "Operacions"
@@ -28,11 +32,11 @@ msgstr "Cost"
 
 msgctxt "field:production.operation,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:production.operation,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:production.operation,id:"
 msgid "ID"
@@ -41,10 +45,6 @@ msgstr "Identificador"
 msgctxt "field:production.operation,lines:"
 msgid "Lines"
 msgstr "Línies"
-
-msgctxt "field:production.operation,name:"
-msgid "Name"
-msgstr "Nom"
 
 msgctxt "field:production.operation,operation_type:"
 msgid "Operation Type"
@@ -73,6 +73,10 @@ msgstr "Estat"
 msgctxt "field:production.operation,work_center:"
 msgid "Work Center"
 msgstr "Centre de treball"
+
+msgctxt "field:production.operation,work_center_category:"
+msgid "Work Center Category"
+msgstr "Categoria del centre de treball"
 
 msgctxt "field:production.operation,write_date:"
 msgid "Write Date"
@@ -110,13 +114,13 @@ msgctxt "field:production.operation.tracking,rec_name:"
 msgid "Name"
 msgstr "Nom"
 
+msgctxt "field:production.operation.tracking,unit_digits:"
+msgid "Unit Digits"
+msgstr "Decimals d'unitat"
+
 msgctxt "field:production.operation.tracking,uom:"
 msgid "Uom"
 msgstr "UdM"
-
-msgctxt "field:production.operation.tracking,work_center:"
-msgid "Work Center"
-msgstr "Centre de treball"
 
 msgctxt "field:production.operation.tracking,write_date:"
 msgid "Write Date"
@@ -197,10 +201,6 @@ msgstr "Usuari de creació"
 msgctxt "field:production.route.operation,id:"
 msgid "ID"
 msgstr "Identificador"
-
-msgctxt "field:production.route.operation,name:"
-msgid "Name"
-msgstr "Nom"
 
 msgctxt "field:production.route.operation,operation_type:"
 msgid "Operation Type"
@@ -306,6 +306,10 @@ msgctxt "field:production.work_center.category,write_uid:"
 msgid "Write User"
 msgstr "Usuari modificació"
 
+msgctxt "model:ir.action,name:"
+msgid "Operation Type"
+msgstr "Tipus d'operació"
+
 msgctxt "model:ir.action,name:act_production_operation"
 msgid "Operation"
 msgstr "Operació"
@@ -313,10 +317,6 @@ msgstr "Operació"
 msgctxt "model:ir.action,name:act_production_operation_tracking"
 msgid "Operation Tracking"
 msgstr "Registre d'operació"
-
-msgctxt "model:ir.action,name:act_production_operation_type"
-msgid "Operation Type"
-msgstr "Tipus d'operació"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_production_operation_domain_all"
@@ -333,13 +333,13 @@ msgctxt ""
 msgid "Waiting"
 msgstr "Esperant"
 
+msgctxt "model:ir.ui.menu,name:"
+msgid "Operation Types"
+msgstr "Tipus d'operacions"
+
 msgctxt "model:ir.ui.menu,name:menu_production_operation"
 msgid "Operations"
 msgstr "Operacions"
-
-msgctxt "model:ir.ui.menu,name:menu_production_operation_type"
-msgid "Operation Types"
-msgstr "Tipus d'operacions"
 
 msgctxt "model:production.operation,name:"
 msgid "Operation"
@@ -404,6 +404,10 @@ msgstr "Tipus d'operació"
 msgctxt "view:production.operation:"
 msgid "Done"
 msgstr "Realitzat"
+
+msgctxt "view:production.operation:"
+msgid "Lines"
+msgstr "Línies"
 
 msgctxt "view:production.operation:"
 msgid "Operation"
