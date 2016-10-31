@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -13,6 +13,10 @@ msgid ""
 msgstr ""
 "No se puede realizar la producción \"%(production)s\" porqué la operación "
 "\"%(operation)s\" todavía no esta realizada."
+
+msgctxt "error:production:"
+msgid "We can not found any work center for Operation \"%s\"."
+msgstr "No hemos encontrado ningún centro de trabajo para la operación \"%s\"."
 
 msgctxt "field:production,operations:"
 msgid "Operations"
@@ -42,10 +46,6 @@ msgctxt "field:production.operation,lines:"
 msgid "Lines"
 msgstr "Líneas"
 
-msgctxt "field:production.operation,name:"
-msgid "Name"
-msgstr "Nombre"
-
 msgctxt "field:production.operation,operation_type:"
 msgid "Operation Type"
 msgstr "Tipo de operación"
@@ -73,6 +73,10 @@ msgstr "Estado"
 msgctxt "field:production.operation,work_center:"
 msgid "Work Center"
 msgstr "Centro de trabajo"
+
+msgctxt "field:production.operation,work_center_category:"
+msgid "Work Center Category"
+msgstr "Categoría del centro de trabajo"
 
 msgctxt "field:production.operation,write_date:"
 msgid "Write Date"
@@ -110,13 +114,13 @@ msgctxt "field:production.operation.tracking,rec_name:"
 msgid "Name"
 msgstr "Nombre"
 
+msgctxt "field:production.operation.tracking,unit_digits:"
+msgid "Unit Digits"
+msgstr "Decimales de la unidad"
+
 msgctxt "field:production.operation.tracking,uom:"
 msgid "Uom"
 msgstr "UdM"
-
-msgctxt "field:production.operation.tracking,work_center:"
-msgid "Work Center"
-msgstr "Centro de trabajo"
 
 msgctxt "field:production.operation.tracking,write_date:"
 msgid "Write Date"
@@ -197,10 +201,6 @@ msgstr "Usuario de creación"
 msgctxt "field:production.route.operation,id:"
 msgid "ID"
 msgstr "Identificador"
-
-msgctxt "field:production.route.operation,name:"
-msgid "Name"
-msgstr "Nombre"
 
 msgctxt "field:production.route.operation,operation_type:"
 msgid "Operation Type"
@@ -306,6 +306,10 @@ msgctxt "field:production.work_center.category,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
 
+msgctxt "model:ir.action,name:"
+msgid "Operation Type"
+msgstr "Tipo de operación"
+
 msgctxt "model:ir.action,name:act_production_operation"
 msgid "Operation"
 msgstr "Operación"
@@ -313,10 +317,6 @@ msgstr "Operación"
 msgctxt "model:ir.action,name:act_production_operation_tracking"
 msgid "Operation Tracking"
 msgstr "Registro de operación"
-
-msgctxt "model:ir.action,name:act_production_operation_type"
-msgid "Operation Type"
-msgstr "Tipo de operación"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_production_operation_domain_all"
@@ -333,13 +333,13 @@ msgctxt ""
 msgid "Waiting"
 msgstr "En espera"
 
+msgctxt "model:ir.ui.menu,name:"
+msgid "Operation Types"
+msgstr "Tipos de operación"
+
 msgctxt "model:ir.ui.menu,name:menu_production_operation"
 msgid "Operations"
 msgstr "Operaciones"
-
-msgctxt "model:ir.ui.menu,name:menu_production_operation_type"
-msgid "Operation Types"
-msgstr "Tipos de operación"
 
 msgctxt "model:production.operation,name:"
 msgid "Operation"
@@ -367,7 +367,7 @@ msgstr "Centro de trabajo"
 
 msgctxt "model:production.work_center.category,name:"
 msgid "Work Center Category"
-msgstr "Centro de trabajo"
+msgstr "Categoría del centro de trabajo"
 
 msgctxt "selection:production.operation,state:"
 msgid "Done"
@@ -406,6 +406,10 @@ msgid "Done"
 msgstr "Realizado"
 
 msgctxt "view:production.operation:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "view:production.operation:"
 msgid "Operation"
 msgstr "Operación"
 
@@ -427,7 +431,7 @@ msgstr "Ruta"
 
 msgctxt "view:production.work_center.category:"
 msgid "Work Center Category"
-msgstr "Centro de trabajo"
+msgstr "Categoría del centro de trabajo"
 
 msgctxt "view:production.work_center:"
 msgid "Work Center"
