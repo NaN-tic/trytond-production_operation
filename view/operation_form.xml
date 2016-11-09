@@ -6,10 +6,10 @@
     <field name="operation_type"/>
     <label name="production"/>
     <field name="production"/>
-    <label name="work_center"/>
-    <field name="work_center"/>
     <label name="work_center_category"/>
     <field name="work_center_category"/>
+    <label name="work_center"/>
+    <field name="work_center"/>
     <label name="sequence"/>
     <field name="sequence"/>
     <notebook colspan="6">
