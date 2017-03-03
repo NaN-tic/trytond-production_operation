@@ -30,7 +30,7 @@ Configuration production location::
     >>> warehouse.production_location = production_location
     >>> warehouse.save()
 
-Create a route with two operations on different work center::
+Create a route with two operations on diferent work center::
 
     >>> ProductUom = Model.get('product.uom')
     >>> Route = Model.get('production.route')
@@ -241,4 +241,4 @@ Make a production::
     >>> production.state
     u'done'
     >>> production.cost
-    Decimal('100.0000')
+    Decimal('90.0000')
