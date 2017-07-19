@@ -1,12 +1,10 @@
 from decimal import Decimal
-
 from trytond.model import fields, ModelSQL, ModelView, Workflow
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, If, Id
 from trytond.transaction import Transaction
 
 __all__ = ['Operation', 'OperationTracking', 'Production']
-__metaclass__ = PoolMeta
 
 STATES = {
     'readonly': Eval('state').in_(['running', 'done'])
@@ -217,6 +215,7 @@ class OperationTracking(ModelSQL, ModelView):
 
 
 class Production:
+    __metaclass__ = PoolMeta
     __name__ = 'production'
 
     route = fields.Many2One('production.route', 'Route',
@@ -273,20 +272,30 @@ class Production:
     @classmethod
     def done(cls, productions):
         pool = Pool()
+        Config = pool.get('production.configuration')
         Operation = pool.get('production.operation')
         Template = pool.get('product.template')
         Product = pool.get('product.product')
 
-        pending_operations = Operation.search([
-                ('production', 'in', [p.id for p in productions]),
-                ('state', '!=', 'done'),
-                ], limit=1)
-        if pending_operations:
-            operation, = pending_operations
-            cls.raise_user_error('pending_operations', error_args={
-                    'production': operation.production.rec_name,
-                    'operation': operation.rec_name,
-                    })
+        config = Config(1)
+        if config.check_state_operation:
+            pending_operations = Operation.search([
+                    ('production', 'in', [p.id for p in productions]),
+                    ('state', '!=', 'done'),
+                    ], limit=1)
+            if pending_operations:
+                operation, = pending_operations
+                if config.check_state_operation == 'user_warning':
+                    cls.raise_user_warning('pending_operation_%d' % operation.id,
+                            'pending_operations', warning_args={
+                                'production': operation.production.rec_name,
+                                'operation': operation.rec_name,
+                            })
+                else:
+                    cls.raise_user_error('pending_operations', error_args={
+                            'production': operation.production.rec_name,
+                            'operation': operation.rec_name,
+                            })
 
         if hasattr(Product, 'cost_price'):
             digits = Product.cost_price.digits

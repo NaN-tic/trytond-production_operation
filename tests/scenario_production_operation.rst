@@ -104,7 +104,6 @@ Create a route with two operations on diferent work center::
     >>> len(route.operations) == 2
     True
 
-
 Create product::
 
     >>> ProductTemplate = Model.get('product.template')

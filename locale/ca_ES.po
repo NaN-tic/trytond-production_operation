@@ -26,6 +26,10 @@ msgctxt "field:production,route:"
 msgid "Route"
 msgstr "Ruta"
 
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "Comprovar estat operació"
+
 msgctxt "field:production.operation,cost:"
 msgid "Cost"
 msgstr "Cost"
@@ -306,6 +310,10 @@ msgctxt "field:production.work_center.category,write_uid:"
 msgid "Write User"
 msgstr "Usuari modificació"
 
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr "Comprova l'estat de les operacions quan es finalitza una producció"
+
 msgctxt "model:ir.action,name:"
 msgid "Operation Type"
 msgstr "Tipus d'operació"
@@ -368,6 +376,14 @@ msgstr "Centre de treball"
 msgctxt "model:production.work_center.category,name:"
 msgid "Work Center Category"
 msgstr "Categoria del centre de treball"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Error"
+msgstr "Error usuari"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Warning"
+msgstr "Alerta usuari"
 
 msgctxt "selection:production.operation,state:"
 msgid "Done"

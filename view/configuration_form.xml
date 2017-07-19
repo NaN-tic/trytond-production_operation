@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<data>
+    <xpath expr="/form" position="inside">
+        <newline/>
+        <label name="check_state_operation"/>
+        <field name="check_state_operation"/>
+    </xpath>
+</data>
