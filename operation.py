@@ -338,8 +338,10 @@ class Production:
             return
 
         self.operations = []
+        operations = []
         for route_operation in self.route.operations:
-            self.operations.append(self._operation(route_operation))
+            operations.append(self._operation(route_operation))
+        self.operations = operations
 
     def _operation(self, route_operation):
         Operation = Pool().get('production.operation')
