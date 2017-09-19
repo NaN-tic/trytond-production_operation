@@ -1,0 +1,230 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:production.operation:"
+msgid "You can not create an operation for Production \"%s\"."
+msgstr "Für Produktion \"%s\" kann kein Arbeitsgang erstellt werden."
+
+msgctxt "error:production:"
+msgid ""
+"Production \"%(production)s\" can not be done because their operation "
+"\"%(operation)s\" is not done."
+msgstr ""
+"Produktion \"%(production)s\" kann nicht erledigt werden, weil Arbeitsgang "
+"\"%(operation)s\" nicht erledigt ist."
+
+msgctxt "error:production:"
+msgid "We can not found any work center for Operation \"%s\"."
+msgstr "Kein Arbeitsplatz für Arbeitsgang \"%s\" gefunden."
+
+msgctxt "field:production,operations:"
+msgid "Operations"
+msgstr "Arbeitsgänge"
+
+msgctxt "field:production,route:"
+msgid "Route"
+msgstr "Fertigungsablauf"
+
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "Arbeitsgangsstatusüberprüfung durchführen mit Resultat"
+
+msgctxt "field:production.operation,cost:"
+msgid "Cost"
+msgstr "Kosten"
+
+msgctxt "field:production.operation,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:production.operation,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:production.operation,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:production.operation,lines:"
+msgid "Lines"
+msgstr "Zeilen"
+
+msgctxt "field:production.operation,operation_type:"
+msgid "Operation Type"
+msgstr "Arbeitsgangtyp"
+
+msgctxt "field:production.operation,production:"
+msgid "Production"
+msgstr "Produktion"
+
+msgctxt "field:production.operation,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:production.operation,route_operation:"
+msgid "Route Operation"
+msgstr "Arbeitsgang"
+
+msgctxt "field:production.operation,sequence:"
+msgid "Sequence"
+msgstr "Reihenfolge"
+
+msgctxt "field:production.operation,state:"
+msgid "State"
+msgstr "Status"
+
+msgctxt "field:production.operation,work_center:"
+msgid "Work Center"
+msgstr "Arbeitsplatz"
+
+msgctxt "field:production.operation,work_center_category:"
+msgid "Work Center Category"
+msgstr "Arbeitsplatzkategorie"
+
+msgctxt "field:production.operation,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:production.operation,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "field:production.operation.tracking,cost:"
+msgid "Cost"
+msgstr "Kosten"
+
+msgctxt "field:production.operation.tracking,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:production.operation.tracking,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:production.operation.tracking,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:production.operation.tracking,operation:"
+msgid "Operation"
+msgstr "Arbeitsgang"
+
+msgctxt "field:production.operation.tracking,quantity:"
+msgid "Quantity"
+msgstr "Anzahl"
+
+msgctxt "field:production.operation.tracking,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:production.operation.tracking,unit_digits:"
+msgid "Unit Digits"
+msgstr "Nachkommastellen"
+
+msgctxt "field:production.operation.tracking,uom:"
+msgid "Uom"
+msgstr "Maßeinheit"
+
+msgctxt "field:production.operation.tracking,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:production.operation.tracking,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr "Arbeitsgangsstatus bei Erledigung der Produktion überprüfen"
+
+msgctxt "model:ir.action,name:act_production_operation"
+msgid "Operation"
+msgstr "Arbeitsgang"
+
+msgctxt "model:ir.action,name:act_production_operation_tracking"
+msgid "Operation Tracking"
+msgstr "Arbeitsgangverfolgung"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_all"
+msgid "All"
+msgstr "Alle"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_running"
+msgid "Running"
+msgstr "In Ausführung"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_waiting"
+msgid "Waiting"
+msgstr "Wartend"
+
+msgctxt "model:ir.ui.menu,name:menu_production_operation"
+msgid "Operations"
+msgstr "Arbeitsgänge"
+
+msgctxt "model:production.operation,name:"
+msgid "Operation"
+msgstr "Arbeitsgang"
+
+msgctxt "model:production.operation.tracking,name:"
+msgid "operation.tracking"
+msgstr "Arbeitsgangverfolgung"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid ""
+msgstr ""
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Error"
+msgstr "Fehler"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Warning"
+msgstr "Warnung"
+
+msgctxt "selection:production.operation,state:"
+msgid "Done"
+msgstr "Erledigt"
+
+msgctxt "selection:production.operation,state:"
+msgid "Planned"
+msgstr "Geplant"
+
+msgctxt "selection:production.operation,state:"
+msgid "Running"
+msgstr "In Ausführung"
+
+msgctxt "selection:production.operation,state:"
+msgid "Waiting"
+msgstr "Wartend"
+
+msgctxt "view:production.operation.tracking:"
+msgid "Operation Tracking"
+msgstr "Arbeitsgangverfolgung"
+
+msgctxt "view:production.operation:"
+msgid "Done"
+msgstr "Erledigt"
+
+msgctxt "view:production.operation:"
+msgid "Lines"
+msgstr "Zeilen"
+
+msgctxt "view:production.operation:"
+msgid "Operation"
+msgstr "Arbeitsgang"
+
+msgctxt "view:production.operation:"
+msgid "Run"
+msgstr "Ausführen"
+
+msgctxt "view:production.operation:"
+msgid "Wait"
+msgstr "Warten"
+
+msgctxt "view:production:"
+msgid "Operations"
+msgstr "Arbeitsgänge"
