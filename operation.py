@@ -43,6 +43,8 @@ class Operation(Workflow, ModelSQL, ModelView):
             ('running', 'Running'),
             ('done', 'Done'),
             ], 'State', readonly=True)
+    company = fields.Function(fields.Many2One('company.company', 'Company'),
+        'get_company', searcher='search_company')
 
     @classmethod
     def __setup__(cls):
@@ -77,6 +79,13 @@ class Operation(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_state():
         return 'planned'
+
+    def get_company(self, name):
+        return self.production.company.id if self.production.company else None
+
+    @classmethod
+    def search_company(cls, name, clause):
+        return [('production.company',) + tuple(clause[1:])]
 
     def get_rec_name(self, name):
         res = ''
@@ -176,6 +185,8 @@ class OperationTracking(ModelSQL, ModelView):
     quantity = fields.Float('Quantity', required=True,
         digits=(16, Eval('unit_digits', 2)), depends=['unit_digits'])
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
+    company = fields.Function(fields.Many2One('company.company', 'Company'),
+        'get_company', searcher='search_company')
 
     @staticmethod
     def default_quantity():
@@ -203,6 +214,14 @@ class OperationTracking(ModelSQL, ModelView):
         quantity = Uom.compute_qty(self.uom, self.quantity,
             work_center.uom)
         return Decimal(str(quantity)) * work_center.cost_price
+
+    def get_company(self, name):
+        return (self.operation.production.company.id
+            if self.operation.production else None)
+
+    @classmethod
+    def search_company(cls, name, clause):
+        return [('operation.production.company',) + tuple(clause[1:])]
 
     @fields.depends('operation')
     def on_change_with_uom(self):
