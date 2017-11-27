@@ -123,7 +123,6 @@ Create a route with two operations on diferent work center::
     >>> len(route.operations) == 2
     True
 
-
 Create product::
 
     >>> ProductTemplate = Model.get('product.template')
@@ -253,7 +252,7 @@ Make a production::
     >>> Production.done([production.id], config.context)
     Traceback (most recent call last):
         ...
-    UserError: ('UserError', (u'Production "1" can not be done because their operation "Assembly" is not done.', ''))
+    UserError: ('UserError', (u'Production "1" can not be done because their operation "Assembly @ 1" is not done.', ''))
     >>> operation1, operation2 = production.operations
     >>> tracking = OperationTracking()
     >>> operation1.lines.append(tracking)
