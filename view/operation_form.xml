@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<form string="Operation">
+<form>
     <label name="operation_type"/>
     <field name="operation_type"/>
     <label name="production"/>
@@ -21,11 +21,9 @@
         <label name="state"/>
         <field name="state"/>
         <group col="6" colspan="2" id="buttons">
-            <button name="wait" string="Wait"/>
-            <button name="run" string="Run"
-                icon="tryton-go-next"/>
-            <button name="done" string="Done"
-                icon="tryton-go-next"/>
+            <button name="wait"/>
+            <button name="run" icon="tryton-go-next"/>
+            <button name="done" icon="tryton-go-next"/>
         </group>
     </group>
 </form>

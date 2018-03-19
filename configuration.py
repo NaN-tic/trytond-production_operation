@@ -11,7 +11,7 @@ class Configuration:
             (None, ''),
             ('user_warning', 'User Warning'),
             ('user_error', 'User Error'),
-        ], 'Check State Operation',
+            ], 'Check State Operation',
         help='Check state operation when done a production')
 
     @staticmethod

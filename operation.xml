@@ -94,6 +94,22 @@
             <field name="rule_group" ref="rule_group_production_operation"/>
         </record>
 
+        <record model="ir.model.button" id="production_operation_wait_button">
+            <field name="name">wait</field>
+            <field name="string">Wait</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+        <record model="ir.model.button" id="production_operation_run_button">
+            <field name="name">run</field>
+            <field name="string">Run</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+        <record model="ir.model.button" id="production_operation_done_button">
+            <field name="name">done</field>
+            <field name="string">Done</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+
         <!-- production.operation.tracking -->
         <record model="ir.ui.view" id="production_operation_tracking_view_form">
             <field name="model">production.operation.tracking</field>

@@ -1,5 +1,6 @@
 from decimal import Decimal
-from trytond.model import fields, ModelSQL, ModelView, Workflow
+from trytond.model import (fields, ModelSQL, ModelView, Workflow,
+    sequence_ordered)
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, If, Id
 from trytond.transaction import Transaction
@@ -12,13 +13,12 @@ STATES = {
 DEPENDS = ['state']
 
 
-class Operation(Workflow, ModelSQL, ModelView):
+class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     'Operation'
     __name__ = 'production.operation'
 
     production = fields.Many2One('production', 'Production', required=True,
         states=STATES, depends=DEPENDS, ondelete='CASCADE')
-    sequence = fields.Integer('Sequence', states=STATES, depends=DEPENDS)
     work_center_category = fields.Many2One('production.work_center.category',
         'Work Center Category', states=STATES, depends=DEPENDS, required=True)
     work_center = fields.Many2One('production.work_center', 'Work Center',
@@ -47,7 +47,6 @@ class Operation(Workflow, ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(Operation, cls).__setup__()
-        cls._order.insert(0, ('sequence', 'ASC'))
         cls._invalid_production_states_on_create = ['done']
         cls._error_messages.update({
                 'invalid_production_state': ('You can not create an operation'
@@ -119,11 +118,6 @@ class Operation(Workflow, ModelSQL, ModelView):
         default.setdefault('state', 'planned')
         default.setdefault('lines', [])
         return super(Operation, cls).copy(operations, default)
-
-    @staticmethod
-    def order_sequence(tables):
-        table, _ = tables[None]
-        return [table.sequence == None, table.sequence]
 
     def get_cost(self, name):
         cost = Decimal('0.0')
@@ -299,10 +293,11 @@ class Production:
             if pending_operations:
                 operation, = pending_operations
                 if config.check_state_operation == 'user_warning':
-                    cls.raise_user_warning('pending_operation_%d' % operation.id,
-                            'pending_operations', warning_args={
-                                'production': operation.production.rec_name,
-                                'operation': operation.rec_name,
+                    cls.raise_user_warning(
+                        'pending_operation_%d' % operation.id,
+                        'pending_operations', warning_args={
+                            'production': operation.production.rec_name,
+                            'operation': operation.rec_name,
                             })
                 else:
                     cls.raise_user_error('pending_operations', error_args={

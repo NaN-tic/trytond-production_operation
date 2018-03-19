@@ -1,10 +1,6 @@
-===================
-Production Scenario
-===================
-
-=============
-General Setup
-=============
+=============================
+Production Operation Scenario
+=============================
 
 Imports::
 
@@ -12,31 +8,19 @@ Imports::
     >>> from dateutil.relativedelta import relativedelta
     >>> from decimal import Decimal
     >>> from proteus import config, Model, Wizard
+    >>> from trytond.tests.tools import activate_modules
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> today = datetime.date.today()
 
-Create database::
-
-    >>> config = config.set_trytond()
-    >>> config.pool.test = True
-
 Install production_operation Module::
 
-    >>> Module = Model.get('ir.module')
-    >>> modules = Module.find([('name', '=', 'production_operation')])
-    >>> Module.install([x.id for x in modules], config.context)
-    >>> Wizard('ir.module.install_upgrade').execute('upgrade')
+    >>> config = activate_modules('production_operation')
 
 Create company::
 
     >>> _ = create_company()
     >>> company = get_company()
-
-Reload the context::
-
-    >>> User = Model.get('res.user')
-    >>> config._context = User.get_preferences(True, config.context)
 
 Configuration production location::
 
@@ -46,7 +30,7 @@ Configuration production location::
     >>> warehouse.production_location = production_location
     >>> warehouse.save()
 
-Create a route with two operations on diferent work center::
+Create a route with two operations on different work center::
 
     >>> ProductUom = Model.get('product.uom')
     >>> Route = Model.get('production.route')
@@ -113,10 +97,11 @@ Create product::
     >>> template.name = 'product'
     >>> template.default_uom = unit
     >>> template.type = 'goods'
+    >>> template.producible = True
     >>> template.list_price = Decimal(30)
-    >>> template.cost_price = Decimal(20)
     >>> template.save()
     >>> product.template = template
+    >>> product.cost_price = Decimal(20)
     >>> product.save()
 
 Create Components::
@@ -127,9 +112,9 @@ Create Components::
     >>> template1.default_uom = unit
     >>> template1.type = 'goods'
     >>> template1.list_price = Decimal(5)
-    >>> template1.cost_price = Decimal(1)
     >>> template1.save()
     >>> component1.template = template1
+    >>> component1.cost_price = Decimal(1)
     >>> component1.save()
 
     >>> meter, = ProductUom.find([('name', '=', 'Meter')])
@@ -140,9 +125,9 @@ Create Components::
     >>> template2.default_uom = meter
     >>> template2.type = 'goods'
     >>> template2.list_price = Decimal(7)
-    >>> template2.cost_price = Decimal(5)
     >>> template2.save()
     >>> component2.template = template2
+    >>> component2.cost_price = Decimal(5)
     >>> component2.save()
 
 Create Bill of Material::
@@ -230,10 +215,10 @@ Make a production::
     True
     >>> all(o.state == 'waiting' for o in production.operations)
     True
-    >>> Production.done([production.id], config.context)
+    >>> Production.done([production.id], config.context)  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
-    UserError: ('UserError', (u'Production "1" can not be done because their operation "Assembly" is not done.', ''))
+    UserError: ...
     >>> operation1, operation2 = production.operations
     >>> tracking = OperationTracking()
     >>> operation1.lines.append(tracking)
@@ -255,5 +240,5 @@ Make a production::
     >>> production.reload()
     >>> production.state
     u'done'
-    >>> production.cost == Decimal('100')
-    True
+    >>> production.cost
+    Decimal('100.0000')
