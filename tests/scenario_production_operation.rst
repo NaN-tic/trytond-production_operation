@@ -67,7 +67,7 @@ Create a route with two operations on diferent work center::
     >>> route = Route(name='default route')
     >>> route.uom = unit
     >>> route_operation = RouteOperation()
-    >>> route.operations.append(route_operation)
+    >>> route_operation = route.operations.new()
     >>> route_operation.sequence = 1
     >>> route_operation.operation_type = assembly
     >>> route_operation.work_center_category = category
@@ -76,7 +76,7 @@ Create a route with two operations on diferent work center::
     >>> route_operation.quantity = 3
     >>> route_operation.quantity_uom = unit
     >>> route_operation = RouteOperation()
-    >>> route.operations.append(route_operation)
+    >>> route_operation = route.operations.new()
     >>> route_operation.sequence = 2
     >>> route_operation.operation_type = cleaning
     >>> route_operation.calculation = 'fixed'
@@ -136,17 +136,15 @@ Create Bill of Material::
     >>> BOMInput = Model.get('production.bom.input')
     >>> BOMOutput = Model.get('production.bom.output')
     >>> bom = BOM(name='product')
-    >>> input1 = BOMInput()
-    >>> bom.inputs.append(input1)
+    >>> input1 = bom.inputs.new()
     >>> input1.product = component1
     >>> input1.quantity = 5
-    >>> input2 = BOMInput()
-    >>> bom.inputs.append(input2)
+    >>> input2 = bom.inputs.new()
     >>> input2.product = component2
     >>> input2.quantity = 150
     >>> input2.uom = centimeter
     >>> output = BOMOutput()
-    >>> bom.outputs.append(output)
+    >>> output = bom.outputs.new()
     >>> output.product = product
     >>> output.quantity = 1
     >>> bom.save()
@@ -221,13 +219,12 @@ Make a production::
     UserError: ...
     >>> operation1, operation2 = production.operations
     >>> tracking = OperationTracking()
-    >>> operation1.lines.append(tracking)
+    >>> tracking = operation1.lines.new()
     >>> minute, = ProductUom.find([('name', '=', 'Minute')])
     >>> tracking.quantity = 180.0
     >>> tracking.uom = minute
     >>> operation1.save()
-    >>> new_operation = Operation()
-    >>> production.operations.append(new_operation)
+    >>> new_operation = production.operations.new()
     >>> new_operation.work_center_category = category
     >>> new_operation.operation_type = assembly
     >>> production.save()
@@ -241,4 +238,4 @@ Make a production::
     >>> production.state
     u'done'
     >>> production.cost
-    Decimal('90.0000')
+    Decimal('100.0000')
