@@ -56,6 +56,26 @@
             <field name="act_window" ref="act_production_operation"/>
         </record>
 
+        <record model="ir.model.button" id="done_button">
+            <field name="name">done</field>
+            <field name="string">Done</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+
+
+        <record model="ir.model.button" id="run_button">
+            <field name="name">run</field>
+            <field name="string">Run</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+
+        <record model="ir.model.button" id="wait_button">
+            <field name="name">wait</field>
+            <field name="string">Wait</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+
+
         <record model="ir.model.access" id="default_access_production_operation">
             <field name="model"
                 search="[('model', '=', 'production.operation')]"/>
