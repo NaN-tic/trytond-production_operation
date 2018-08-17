@@ -173,7 +173,7 @@ Create an Inventory::
     >>> inventory.save()
     >>> Inventory.confirm([inventory.id], config.context)
     >>> inventory.state
-    u'done'
+    'done'
 
 Make a production::
 
@@ -201,7 +201,7 @@ Make a production::
     True
     >>> Production.wait([production.id], config.context)
     >>> production.state
-    u'waiting'
+    'waiting'
     >>> Production.assign_try([production.id], config.context)
     True
     >>> production.reload()
@@ -236,6 +236,6 @@ Make a production::
     >>> Operation.done(operations, config.context)
     >>> production.reload()
     >>> production.state
-    u'done'
+    'done'
     >>> production.cost
     Decimal('100.0000')

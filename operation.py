@@ -227,8 +227,7 @@ class OperationTracking(ModelSQL, ModelView):
         return 2
 
 
-class Production:
-    __metaclass__ = PoolMeta
+class Production(metaclass=PoolMeta):
     __name__ = 'production'
 
     route = fields.Many2One('production.route', 'Route',

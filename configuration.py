@@ -4,8 +4,7 @@ from trytond.pool import PoolMeta
 __all__ = ['Configuration']
 
 
-class Configuration:
-    __metaclass__ = PoolMeta
+class Configuration(metaclass=PoolMeta):
     __name__ = 'production.configuration'
     check_state_operation = fields.Selection([
             (None, ''),
