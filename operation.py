@@ -351,9 +351,9 @@ class Production:
         if not self.route:
             return
 
-        self.operations = []
+        self.operations = tuple()
         for route_operation in self.route.operations:
-            self.operations.append(self._operation(route_operation))
+            self.operations += (self._operation(route_operation), )
 
     def _operation(self, route_operation):
         Operation = Pool().get('production.operation')
