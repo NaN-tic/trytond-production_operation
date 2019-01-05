@@ -4,6 +4,9 @@ from trytond.model import (fields, ModelSQL, ModelView, Workflow,
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, If, Id
 from trytond.transaction import Transaction
+from trytond.i18n import gettext
+from trytond.exceptions import UserWarning, UserError
+
 
 __all__ = ['Operation', 'OperationTracking', 'Production']
 
@@ -48,10 +51,6 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def __setup__(cls):
         super(Operation, cls).__setup__()
         cls._invalid_production_states_on_create = ['done']
-        cls._error_messages.update({
-                'invalid_production_state': ('You can not create an operation'
-                    ' for Production "%s".'),
-                })
         cls._transitions |= set((
                 ('planned', 'waiting'),
                 ('waiting', 'running'),
@@ -113,8 +112,9 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
                 ], limit=1)
         if invalid_productions:
             production, = invalid_productions
-            cls.raise_user_error('invalid_production_state',
-                production.rec_name)
+            raise UserWarning('invalid_production_state',
+                gettext('production_operation.invalid_production_state',
+                    production=production.rec_name))
         return super(Operation, cls).create(vlist)
 
     @classmethod
@@ -239,17 +239,6 @@ class Production(metaclass=PoolMeta):
             'readonly': Eval('state') == 'done',
             })
 
-    @classmethod
-    def __setup__(cls):
-        super(Production, cls).__setup__()
-        cls._error_messages.update({
-                'pending_operations': ('Production "%(production)s" can not be'
-                    ' done because their operation "%(operation)s" is not '
-                    'done.'),
-                'no_work_center': ('We can not found any work center for '
-                    'Operation "%s".'),
-                })
-
     @fields.depends('route', 'operations')
     def on_change_route(self):
         Operation = Pool().get('production.operation')
@@ -298,17 +287,16 @@ class Production(metaclass=PoolMeta):
             if pending_operations:
                 operation, = pending_operations
                 if config.check_state_operation == 'user_warning':
-                    cls.raise_user_warning(
+                    raise UserWarning(
                         'pending_operation_%d' % operation.id,
-                        'pending_operations', warning_args={
-                            'production': operation.production.rec_name,
-                            'operation': operation.rec_name,
-                            })
+                        gettext('production_operation.pending_operations',
+                            production=operation.production.rec_name,
+                            operation=operation.rec_name))
                 else:
-                    cls.raise_user_error('pending_operations', error_args={
-                            'production': operation.production.rec_name,
-                            'operation': operation.rec_name,
-                            })
+                    raise UserError(
+                        gettext('production_operation.pending_operations',
+                            production=operation.production.rec_name,
+                            operation=operation.rec_name))
 
         if hasattr(Product, 'cost_price'):
             digits = Product.cost_price.digits
