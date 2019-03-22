@@ -84,6 +84,7 @@
         </record>
 
         <record model="ir.rule.group" id="rule_group_production_operation">
+            <field name="name">Rule Group Product Operation</field>
             <field name="model" search="[('model', '=', 'production.operation')]"/>
             <field name="global_p" eval="True"/>
         </record>
@@ -171,6 +172,7 @@
         </record>
 
         <record model="ir.rule.group" id="rule_group_production_operation_tracking">
+            <field name="name">Rule Group Production Operation Tracking</field>
             <field name="model" search="[('model', '=', 'production.operation.tracking')]"/>
             <field name="global_p" eval="True"/>
         </record>
