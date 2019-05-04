@@ -102,6 +102,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def create(cls, vlist):
         pool = Pool()
         Production = pool.get('production')
+        Warning = pool.get('res.user.warning')
         productions = []
         for value in vlist:
             productions.append(value['production'])
@@ -110,10 +111,13 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
                 ('id', 'in', productions),
                 ('state', 'in', cls._invalid_production_states_on_create),
                 ], limit=1)
+
         if invalid_productions:
             production, = invalid_productions
-            raise UserWarning('invalid_production_state',
-                gettext('production_operation.invalid_production_state',
+            key = 'invalid_production_state_%s' % production.id
+            if Warning.check(key):
+                raise UserWarning(key, gettext(
+                    'production_operation.invalid_production_state',
                     production=production.rec_name))
         return super(Operation, cls).create(vlist)
 
@@ -277,6 +281,7 @@ class Production(metaclass=PoolMeta):
         Operation = pool.get('production.operation')
         Template = pool.get('product.template')
         Product = pool.get('product.product')
+        Warning = pool.get('res.user.warning')
 
         config = Config(1)
         if config.check_state_operation:
@@ -286,9 +291,10 @@ class Production(metaclass=PoolMeta):
                     ], limit=1)
             if pending_operations:
                 operation, = pending_operations
-                if config.check_state_operation == 'user_warning':
-                    raise UserWarning(
-                        'pending_operation_%d' % operation.id,
+                key ='pending_operation_%d' % operation.id
+                if (config.check_state_operation == 'user_warning' and
+                        Warning.check(key)):
+                    raise UserWarning(key,
                         gettext('production_operation.pending_operations',
                             production=operation.production.rec_name,
                             operation=operation.rec_name))
