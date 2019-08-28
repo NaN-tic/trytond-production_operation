@@ -12,9 +12,5 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="pending_operations">
             <field name="text">Production "%(production)s" can not be done because their operation "%(operation)s" is not done.'</field>
         </record>
-        <record model="ir.message" id="">
-            <field name="text"></field>
-        </record>
-
       </data>
 </tryton>
