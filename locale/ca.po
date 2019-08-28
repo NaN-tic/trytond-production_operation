@@ -341,7 +341,7 @@ msgstr ""
 msgctxt "model:ir.message,text:no_work_center"
 msgid "We can not found any work center for  Operation \"%(operation)s\"."
 msgstr ""
-"No hem trobat cap centre de treball per a l'operació" " \"%(operation)s\"."
+"No hem trobat cap centre de treball per a l'operació \"%(operation)s\"."
 
 msgctxt "model:ir.message,text:pending_operations"
 msgid ""
