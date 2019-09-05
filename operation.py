@@ -61,11 +61,11 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
                 'wait': {
                     'invisible': ~Eval('state').in_(['planned', 'running']),
                     'icon': If(Eval('state') == 'running',
-                        'tryton-go-previous', 'tryton-go-next')
+                        'tryton-back', 'tryton-forward')
                     },
                 'run': {
                     'invisible': Eval('state') != 'waiting',
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-forward',
                     },
                 'done': {
                     'invisible': Eval('state') != 'running',
