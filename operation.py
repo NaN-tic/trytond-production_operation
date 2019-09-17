@@ -247,6 +247,9 @@ class Production(metaclass=PoolMeta):
     def on_change_route(self):
         Operation = Pool().get('production.operation')
 
+        delete_operations = [x for x in self.operations]
+        Operation.delete(delete_operations)
+
         operations = []
         if self.route:
             for operation in self.route.operations:
@@ -256,6 +259,8 @@ class Production(metaclass=PoolMeta):
                     work_center=operation.work_center,
                     operation_type=operation.operation_type,
                     route_operation=operation,
+                    production=self,
+
                     )
                 operations.append(operation)
             self.operations = operations

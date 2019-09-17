@@ -336,7 +336,7 @@ msgstr "Esperant"
 msgctxt "model:ir.message,text:invalid_production_state"
 msgid "You can not create an operation for Production \"%(production)s\"."
 msgstr ""
-"No podeu crear una operació per a la producció \"""%(production)s\"."
+"No podeu crear una operació per a la producció \"%(production)s\"."
 
 msgctxt "model:ir.message,text:no_work_center"
 msgid "We can not found any work center for  Operation \"%(operation)s\"."
