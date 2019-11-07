@@ -219,7 +219,7 @@ class OperationTracking(ModelSQL, ModelView):
     def search_company(cls, name, clause):
         return [('operation.production.company',) + tuple(clause[1:])]
 
-    @fields.depends('operation')
+    @fields.depends('_parent_operation.id', 'operation')
     def on_change_with_uom(self):
         if self.operation and self.operation.work_center:
             return self.operation.work_center.uom.id
