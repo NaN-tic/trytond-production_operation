@@ -221,7 +221,7 @@ class OperationTracking(ModelSQL, ModelView):
 
     @fields.depends('_parent_operation.id', 'operation')
     def on_change_with_uom(self):
-        if self.operation and self.operation.work_center:
+        if self.operation and getattr(self.operation, 'work_center', None):
             return self.operation.work_center.uom.id
 
     @fields.depends('uom')
@@ -317,11 +317,12 @@ class Production(metaclass=PoolMeta):
                 continue
             total_quantity = Decimal(str(sum(o.quantity for o in
                         production.outputs)))
-            added_unit_price = Decimal(operation_cost / total_quantity
-                ).quantize(Decimal(str(10 ** -digits[1])))
-            for output in production.outputs:
-                output.unit_price += added_unit_price
-                output.save()
+            if total_quantity:
+                added_unit_price = Decimal(operation_cost / total_quantity
+                    ).quantize(Decimal(str(10 ** -digits[1])))
+                for output in production.outputs:
+                    output.unit_price += added_unit_price
+                    output.save()
 
         super(Production, cls).done(productions)
 
