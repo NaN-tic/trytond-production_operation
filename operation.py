@@ -221,7 +221,7 @@ class OperationTracking(ModelSQL, ModelView):
 
     @fields.depends('operation')
     def on_change_with_uom(self):
-        if self.operation and self.operation.work_center:
+        if self.operation and getattr(self.operation, 'work_center', None):
             return self.operation.work_center.uom.id
 
     @fields.depends('uom')
