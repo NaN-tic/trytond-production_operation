@@ -7,4 +7,7 @@
     <field name="work_center"/>
     <field name="work_center_category"/>
     <field name="state"/>
+    <button name="wait"/>
+    <button name="run"/>
+    <button name="done"/>
 </tree>
