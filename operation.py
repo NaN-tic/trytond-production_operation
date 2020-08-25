@@ -125,6 +125,8 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def copy(cls, operations, default=None):
         if default is None:
             default = {}
+        else:
+            default = default.copy()
         default.setdefault('state', 'planned')
         default.setdefault('lines', [])
         return super(Operation, cls).copy(operations, default)
