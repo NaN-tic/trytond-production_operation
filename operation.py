@@ -36,6 +36,8 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
             'work_center': Eval('work_center'),
             })
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
+    total_quantity = fields.Function(fields.Float('Total Quantity'),
+        'get_total_quantity')
     operation_type = fields.Many2One('production.operation.type',
         'Operation Type', states=STATES, depends=DEPENDS, required=True)
     state = fields.Selection([
@@ -136,6 +138,15 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         for line in self.lines:
             cost += line.cost
         return cost
+
+    def get_total_quantity(self, name):
+        Uom = Pool().get('product.uom')
+
+        total = 0.
+        for line in self.lines:
+            total += Uom.compute_qty(line.uom, line.quantity,
+                self.work_center_category.uom)
+        return total
 
     @classmethod
     @ModelView.button
