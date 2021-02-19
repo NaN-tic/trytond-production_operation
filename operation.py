@@ -39,6 +39,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     operation_type = fields.Many2One('production.operation.type',
         'Operation Type', states=STATES, depends=DEPENDS, required=True)
     state = fields.Selection([
+            ('cancel', 'Canceled'),
             ('planned', 'Planned'),
             ('waiting', 'Waiting'),
             ('running', 'Running'),
@@ -52,12 +53,16 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         super(Operation, cls).__setup__()
         cls._invalid_production_states_on_create = ['done']
         cls._transitions |= set((
+                ('planned', 'cancel'),
                 ('planned', 'waiting'),
                 ('waiting', 'running'),
                 ('running', 'waiting'),
                 ('running', 'done'),
                 ))
         cls._buttons.update({
+                'cancel': {
+                    'invisible': Eval('state') != 'planned',
+                    },
                 'wait': {
                     'invisible': ~Eval('state').in_(['planned', 'running']),
                     'icon': If(Eval('state') == 'running',
@@ -134,6 +139,12 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         for line in self.lines:
             cost += line.cost
         return cost
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('cancel')
+    def cancel(cls, operations):
+        pass
 
     @classmethod
     @ModelView.button
@@ -287,7 +298,7 @@ class Production(metaclass=PoolMeta):
         if config.check_state_operation:
             pending_operations = Operation.search([
                     ('production', 'in', [p.id for p in productions]),
-                    ('state', '!=', 'done'),
+                    ('state', 'not in', ['cancel', 'done']),
                     ], limit=1)
             if pending_operations:
                 operation, = pending_operations
