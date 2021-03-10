@@ -416,6 +416,10 @@ msgid "User Warning"
 msgstr "Alerta usuari"
 
 msgctxt "selection:production.operation,state:"
+msgid "Canceled"
+msgstr "Cancel·lada"
+
+msgctxt "selection:production.operation,state:"
 msgid "Done"
 msgstr "Realitzat"
 

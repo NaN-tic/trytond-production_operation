@@ -95,6 +95,11 @@
             <field name="rule_group" ref="rule_group_production_operation"/>
         </record>
 
+        <record model="ir.model.button" id="production_operation_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
         <record model="ir.model.button" id="production_operation_wait_button">
             <field name="name">wait</field>
             <field name="string">Wait</field>
