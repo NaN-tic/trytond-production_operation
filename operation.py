@@ -316,12 +316,12 @@ class Production(metaclass=PoolMeta):
             if pending_operations:
                 operation, = pending_operations
                 key ='pending_operation_%d' % operation.id
-                if (config.check_state_operation == 'user_warning' and
-                        Warning.check(key)):
-                    raise UserWarning(key,
-                        gettext('production_operation.pending_operations',
-                            production=operation.production.rec_name,
-                            operation=operation.rec_name))
+                if config.check_state_operation == 'user_warning':
+                    if Warning.check(key):
+                        raise UserWarning(key,
+                            gettext('production_operation.pending_operations',
+                                production=operation.production.rec_name,
+                                operation=operation.rec_name))
                 else:
                     raise UserError(
                         gettext('production_operation.pending_operations',
