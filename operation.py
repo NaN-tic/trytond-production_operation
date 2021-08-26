@@ -200,10 +200,7 @@ class OperationTracking(ModelSQL, ModelView):
         domain=[
             ('category', '=', Id('product', 'uom_cat_time')),
             ])
-    unit_digits = fields.Function(fields.Integer('Unit Digits'),
-        'on_change_with_unit_digits')
-    quantity = fields.Float('Quantity', required=True,
-        digits=(16, Eval('unit_digits', 2)), depends=['unit_digits'])
+    quantity = fields.Float('Quantity', required=True, digits='uom')
     cost = fields.Function(fields.Numeric('Cost'), 'get_cost')
     company = fields.Function(fields.Many2One('company.company', 'Company'),
         'get_company', searcher='search_company')
@@ -247,12 +244,6 @@ class OperationTracking(ModelSQL, ModelView):
     def on_change_with_uom(self):
         if self.operation and getattr(self.operation, 'work_center', None):
             return self.operation.work_center.uom.id
-
-    @fields.depends('uom')
-    def on_change_with_unit_digits(self, name=None):
-        if self.uom:
-            return self.uom.digits
-        return 2
 
 
 class Production(metaclass=PoolMeta):
