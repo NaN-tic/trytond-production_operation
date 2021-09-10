@@ -41,7 +41,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     operation_type = fields.Many2One('production.operation.type',
         'Operation Type', states=STATES, depends=DEPENDS, required=True)
     state = fields.Selection([
-            ('cancel', 'Canceled'),
+            ('cancelled', 'Canceled'),
             ('planned', 'Planned'),
             ('waiting', 'Waiting'),
             ('running', 'Running'),
@@ -55,7 +55,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         super(Operation, cls).__setup__()
         cls._invalid_production_states_on_create = ['done']
         cls._transitions |= set((
-                ('planned', 'cancel'),
+                ('planned', 'cancelled'),
                 ('planned', 'waiting'),
                 ('waiting', 'running'),
                 ('running', 'waiting'),
@@ -78,6 +78,18 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     'invisible': Eval('state') != 'running',
                     },
                 })
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        sql_table = cls.__table__()
+
+        super(Operation, cls).__register__(module_name)
+
+        # Migration from 5.6: rename state cancel to cancelled
+        cursor.execute(*sql_table.update(
+                [sql_table.state], ['cancelled'],
+                where=sql_table.state == 'cancel'))
 
     @staticmethod
     def default_state():
@@ -155,7 +167,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
-    @Workflow.transition('cancel')
+    @Workflow.transition('cancelled')
     def cancel(cls, operations):
         pass
 
@@ -302,7 +314,7 @@ class Production(metaclass=PoolMeta):
         if config.check_state_operation:
             pending_operations = Operation.search([
                     ('production', 'in', [p.id for p in productions]),
-                    ('state', 'not in', ['cancel', 'done']),
+                    ('state', 'not in', ['cancelled', 'done']),
                     ], limit=1)
             if pending_operations:
                 operation, = pending_operations
