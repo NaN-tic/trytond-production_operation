@@ -365,12 +365,12 @@ msgid "Wait"
 msgstr "Esperando"
 
 msgctxt "model:ir.rule.group,name:rule_group_production_operation"
-msgid "Rule Group Product Operation"
-msgstr "Grupo de reglas de operación de producción"
+msgid "User in companies"
+msgstr "Usuario en las empresas"
 
 msgctxt "model:ir.rule.group,name:rule_group_production_operation_tracking"
-msgid "Rule Group Production Operation Tracking"
-msgstr "Grupo de reglas de registro de operación de producción"
+msgid "User in companies"
+msgstr "Usuario en las empresas"
 
 msgctxt "model:ir.ui.menu,name:"
 msgid "Operation Types"

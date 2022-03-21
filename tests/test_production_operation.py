@@ -7,9 +7,10 @@ import trytond.tests.test_tryton
 from trytond.tests.test_tryton import ModuleTestCase
 from trytond.tests.test_tryton import doctest_teardown
 from trytond.tests.test_tryton import doctest_checker
+from trytond.modules.company.tests import CompanyTestMixin
 
 
-class ProductionOperationTestCase(ModuleTestCase):
+class ProductionOperationTestCase(CompanyTestMixin, ModuleTestCase):
     'Test Production Operatoon module'
     module = 'production_operation'
 

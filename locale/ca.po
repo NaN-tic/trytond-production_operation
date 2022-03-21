@@ -364,12 +364,12 @@ msgid "Wait"
 msgstr "En espera"
 
 msgctxt "model:ir.rule.group,name:rule_group_production_operation"
-msgid "Rule Group Product Operation"
-msgstr "Grup de regles d'operació de producció"
+msgid "User in companies"
+msgstr "Usuari a les empreses"
 
 msgctxt "model:ir.rule.group,name:rule_group_production_operation_tracking"
-msgid "Rule Group Production Operation Tracking"
-msgstr "Grup de regles de registre d'operació de producció"
+msgid "User in companies"
+msgstr "Usuari a les empreses"
 
 msgctxt "model:ir.ui.menu,name:"
 msgid "Operation Types"
