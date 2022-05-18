@@ -371,7 +371,7 @@ class Production(metaclass=PoolMeta):
             order_point=None):
         "Inherited from stock_supply_production"
         production = super(Production, cls).compute_request(product,
-            warehouse, quantity, date, company)
+            warehouse, quantity, date, company, order_point)
         if product.boms and product.boms[0].route:
             production.route = product.boms[0].route
             # TODO: it should be called next to set_moves()
