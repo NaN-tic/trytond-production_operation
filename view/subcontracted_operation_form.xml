@@ -7,5 +7,8 @@
         <newline/>
         <label name="subcontracted_product"/>
         <field name="subcontracted_product"/>
+        <label name="purchase_request"/>
+        <field name="purchase_request"/>
+        <button name="create_purchase_request" colspan="2"/>
     </xpath>
 </data>

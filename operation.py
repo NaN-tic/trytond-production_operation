@@ -415,7 +415,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
 
     @classmethod
     def __setup__(cls):
-        super(Operation, cls).__setup__()
+        super().__setup__()
         cls._buttons.update({
                 'create_purchase_request': {
                     'invisible': Eval('state') != 'planned',
@@ -428,7 +428,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
 
         product = self.subcontracted_product
         uom = product.purchase_uom
-        quantity = self.total_quantity
+        quantity = 1
         shortage_date = self.production.planned_date
         company = self.production.company
         supplier_pattern = {}
@@ -453,16 +453,11 @@ class OperationSubcontrat(metaclass=PoolMeta):
     @ModelView.button
     def create_purchase_request(cls, operations):
         pool = Pool()
-        Request = pool.get('purchase.request')
-        requests = []
         to_save = []
         for operation in operations:
             request = operation._get_purchase_request()
-#            request.save()
             operation.purchase_request = request
             to_save.append(operation)
-            #requests.append(requests)
-        #Request.save(requests)
         cls.save(to_save)
 
 
@@ -479,22 +474,57 @@ class OperationSubcontrat(metaclass=PoolMeta):
         pool = Pool()
         Config = pool.get('production.configuration')
         Warning = pool.get('res.user.warning')
-        operations = []
+        op_warn = []
         config = Config(1)
 
-        operations = [op for op in operations if op.purchase_request]
-
-        if operations:
-            operation, = operations
+        op_warn = [op for op in operations if op.purchase_request]
+        if op_warn:
+            operation, = op_warn
             key ='operation_%d' % operation.id
             if config.check_state_operation == 'user_warning':
                 if Warning.check(key):
                     raise UserWarning(key,
-                    gettext('production_operation.purchase_request',
+                    gettext('production_operation.purchase_request_wait',
                         production=operation.production.rec_name,
                         operation=operation.rec_name))
 
         super().wait(operations)
+
+    @classmethod
+    def done(cls, operations):
+        pool = Pool()
+        Purchase = pool.get('purchase.purchase')
+        requests = set([o.purchase_request for o in operations if
+            o.purchase_request])
+        purchases = [r.purchase for r in requests if r.purchase]
+        print("purchases:", purchases)
+
+        for request in requests:
+            if request.purchase:
+                continue
+            raise UserError(
+                gettext('production_operation.purchase_missing',
+                    request=request.rec_name))
+
+        for purchase in purchases:
+            if purchase.state in ('processing', 'done'):
+                continue
+            raise UserError(
+                gettext('production_operation.purchase_pending',
+                    purchase=purchase.rec_name))
+
+        super().done(operations)
+        Purchase.process(purchases)
+
+
+    @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('purchase_request', None)
+        super().copy(lines, default=default)
 
 
 class PurchaseLine(metaclass=PoolMeta):
@@ -508,11 +538,13 @@ class PurchaseLine(metaclass=PoolMeta):
 
     def _get_invoice_line_quantity(self):
         pool = Pool()
-        PurchaseRequest = pool.get('purchase.request')
-        if (self.purchase.invoice_method == 'shipment'
-                and isinstance(self.origin, PurchaseRequest)
-                and self.origin.state == 'done'):
-            return self.quantity
+        ProductionOperation = pool.get('production.operation')
+        if not isinstance(self.origin, ProductionOperation):
+            return super()._get_invoice_line_quantity()
+
+        if not (self.purchase.invoice_method == 'shipment'
+               and self.origin.state == 'done'):
+            return 0
         return super()._get_invoice_line_quantity()
 
     @classmethod
@@ -525,6 +557,16 @@ class PurchaseLine(metaclass=PoolMeta):
         for model in models:
             res.append([model.model, model.name])
         return res
+
+    @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('origin', None)
+        super().copy(lines, default=default)
+
 
 class PurchaseRequest(metaclass=PoolMeta):
     __name__ = 'purchase.request'
