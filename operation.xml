@@ -202,4 +202,24 @@
             sequence="10"
             name="Operations"/>
     </data>
+
+    <data depends="purchase_request">
+        <record model="ir.ui.view" id="subcontract_operation_view_form">
+            <field name="model">production.operation</field>
+            <field name="inherit" ref="production_operation.production_operation_view_form"/>
+            <field name="name">subcontracted_operation_form</field>
+        </record>
+        <record model="ir.ui.view" id="subcontract_operation_view_list">
+            <field name="model">production.operation</field>
+            <field name="inherit" ref="production_operation.production_operation_view_list"/>
+            <field name="name">subcontracted_operation_list</field>
+        </record>
+
+        <record model="ir.model.button" id="create_purchase_request_button">
+            <field name="name">create_purchase_request</field>
+            <field name="string">Create Purchase Request</field>
+            <field name="model" search="[('model', '=', 'production.operation')]"/>
+        </record>
+
+    </data>
 </tryton>

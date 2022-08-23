@@ -128,7 +128,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
         invalid_productions = Production.search([
                 ('id', 'in', productions),
-                ('state', 'in', cls._invalid_production_states_on_create),
+                ('state', 'in', ['done']),
                 ], limit=1)
 
         if invalid_productions:
@@ -279,20 +279,30 @@ class Production(metaclass=PoolMeta):
             'readonly': Eval('state') == 'done',
             })
 
+    def get_operation(self, route_operation):
+        Operation = Pool().get('production.operation')
+        values = Operation.default_get(
+                    list(Operation._fields.keys()), with_rec_name=False)
+
+        operation = Operation(**values)
+        operation.sequence=route_operation.sequence
+        operation.work_center_category=route_operation.work_center_category
+        operation.work_center=route_operation.work_center
+        operation.operation_type=route_operation.operation_type
+        operation.route_operation=route_operation
+        if 'subcontracted_product' in Operation._fields:
+            operation.subcontracted_product = (
+                route_operation.subcontracted_product)
+        return operation
+
     @fields.depends('route', 'operations')
     def on_change_route(self):
         Operation = Pool().get('production.operation')
         self.operations = None
         operations = []
         if self.route:
-            for operation in self.route.operations:
-                operation = Operation(
-                    sequence=operation.sequence,
-                    work_center_category=operation.work_center_category,
-                    work_center=operation.work_center,
-                    operation_type=operation.operation_type,
-                    route_operation=operation,
-                    )
+            for route_operation in self.route.operations:
+                operation = self.get_operation(route_operation)
                 operations.append(operation)
             self.operations = operations
 
@@ -395,3 +405,150 @@ class Production(metaclass=PoolMeta):
             operation_type=route_operation.operation_type,
             route_operation=route_operation,
             )
+
+class OperationSubcontrat(metaclass=PoolMeta):
+    __name__ = 'production.operation'
+
+    subcontracted_product = fields.Many2One('product.product',
+        'Subcontracted product', domain=[('type', '=', 'service')])
+    purchase_request = fields.Many2One('purchase.request', 'Purchase Request')
+
+    @classmethod
+    def __setup__(cls):
+        super(Operation, cls).__setup__()
+        cls._buttons.update({
+                'create_purchase_request': {
+                    'invisible': Eval('state') != 'planned',
+                },
+            })
+
+    def _get_purchase_request(self):
+        pool = Pool()
+        Request = pool.get('purchase.request')
+
+        product = self.subcontracted_product
+        uom = product.purchase_uom
+        quantity = self.total_quantity
+        shortage_date = self.production.planned_date
+        company = self.production.company
+        supplier_pattern = {}
+        supplier_pattern['company'] = company.id
+        supplier, purchase_date = Request.find_best_supplier(product,
+            shortage_date, **supplier_pattern)
+
+        location = self.production.warehouse
+        request = Request(product=product,
+            party=None,
+            quantity=quantity,
+            uom=uom,
+            purchase_date=purchase_date,
+            supply_date=shortage_date,
+            company=company,
+            warehouse=location.id,
+            origin=self,
+            )
+        return request
+
+    @classmethod
+    @ModelView.button
+    def create_purchase_request(cls, operations):
+        pool = Pool()
+        Request = pool.get('purchase.request')
+        requests = []
+        to_save = []
+        for operation in operations:
+            request = operation._get_purchase_request()
+#            request.save()
+            operation.purchase_request = request
+            to_save.append(operation)
+            #requests.append(requests)
+        #Request.save(requests)
+        cls.save(to_save)
+
+
+    def get_cost(self, name):
+        pool = Pool()
+        cost = super().get_cost(name)
+        if self.purchase_request and self.purchase_request.purchase_line:
+            cost += self.purchase_request.purchase_line.amount
+        return cost
+
+
+    @classmethod
+    def wait(cls, operations):
+        pool = Pool()
+        Config = pool.get('production.configuration')
+        Warning = pool.get('res.user.warning')
+        operations = []
+        config = Config(1)
+
+        operations = [op for op in operations if op.purchase_request]
+
+        if operations:
+            operation, = operations
+            key ='operation_%d' % operation.id
+            if config.check_state_operation == 'user_warning':
+                if Warning.check(key):
+                    raise UserWarning(key,
+                    gettext('production_operation.purchase_request',
+                        production=operation.production.rec_name,
+                        operation=operation.rec_name))
+
+        super().wait(operations)
+
+
+class PurchaseLine(metaclass=PoolMeta):
+    __name__ = 'purchase.line'
+
+    origin = fields.Reference('Origin', selection='get_origin', select=True,
+        states={
+            'readonly': Eval('state') != 'draft',
+            },
+        depends=['state'])
+
+    def _get_invoice_line_quantity(self):
+        pool = Pool()
+        PurchaseRequest = pool.get('purchase.request')
+        if (self.purchase.invoice_method == 'shipment'
+                and isinstance(self.origin, PurchaseRequest)
+                and self.origin.state == 'done'):
+            return self.quantity
+        return super()._get_invoice_line_quantity()
+
+    @classmethod
+    def get_origin(cls):
+        Model = Pool().get('ir.model')
+        models = Model.search([
+                ('model', '=', 'production.operation'),
+                ])
+        res = [(None, ''),]
+        for model in models:
+            res.append([model.model, model.name])
+        return res
+
+class PurchaseRequest(metaclass=PoolMeta):
+    __name__ = 'purchase.request'
+
+
+    @classmethod
+    def get_origin(cls):
+        Model = Pool().get('ir.model')
+        res = super(PurchaseRequest, cls).get_origin()
+        models = Model.search([
+                ('model', '=', 'production.operation'),
+                ])
+        for model in models:
+            res.append([model.model, model.name])
+        return res
+
+class CreatePurchase(metaclass=PoolMeta):
+    __name__ = 'purchase.request.create_purchase'
+
+    @classmethod
+    def compute_purchase_line(cls, key, requests, purchase):
+
+        line = super().compute_purchase_line(key, requests, purchase)
+        if requests:
+            request = requests[0]
+            line.origin = request.origin
+        return line
