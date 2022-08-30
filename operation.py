@@ -418,8 +418,9 @@ class OperationSubcontrat(metaclass=PoolMeta):
         super().__setup__()
         cls._buttons.update({
                 'create_purchase_request': {
-                    'invisible': ( (Eval('state') != 'planned') |
+                    'invisible': ((Eval('state') != 'planned') |
                         ~Bool(Eval('subcontracted_product',-1))),
+                    'readonly': (Bool(Eval('subcontracted_product',-1)))
                 },
             })
 
