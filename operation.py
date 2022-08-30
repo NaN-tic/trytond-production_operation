@@ -2,7 +2,7 @@ from decimal import Decimal
 from trytond.model import (fields, ModelSQL, ModelView, Workflow,
     sequence_ordered)
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If, Id
+from trytond.pyson import Eval, If, Id, Bool, And
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.exceptions import UserWarning, UserError
@@ -418,7 +418,8 @@ class OperationSubcontrat(metaclass=PoolMeta):
         super().__setup__()
         cls._buttons.update({
                 'create_purchase_request': {
-                    'invisible': Eval('state') != 'planned',
+                    'invisible': ( (Eval('state') != 'planned') |
+                        ~Bool(Eval('subcontracted_product',-1))),
                 },
             })
 
@@ -455,6 +456,8 @@ class OperationSubcontrat(metaclass=PoolMeta):
         pool = Pool()
         to_save = []
         for operation in operations:
+            if not operation.subcontracted_product:
+                continue
             request = operation._get_purchase_request()
             operation.purchase_request = request
             to_save.append(operation)
