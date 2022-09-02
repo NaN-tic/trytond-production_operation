@@ -285,11 +285,11 @@ class Production(metaclass=PoolMeta):
                     list(Operation._fields.keys()), with_rec_name=False)
 
         operation = Operation(**values)
-        operation.sequence=route_operation.sequence
-        operation.work_center_category=route_operation.work_center_category
-        operation.work_center=route_operation.work_center
-        operation.operation_type=route_operation.operation_type
-        operation.route_operation=route_operation
+        operation.sequence = route_operation.sequence
+        operation.work_center_category = route_operation.work_center_category
+        operation.work_center = route_operation.work_center
+        operation.operation_type = route_operation.operation_type
+        operation.route_operation = route_operation
         if 'subcontracted_product' in Operation._fields:
             operation.subcontracted_product = (
                 route_operation.subcontracted_product)
@@ -406,6 +406,7 @@ class Production(metaclass=PoolMeta):
             route_operation=route_operation,
             )
 
+
 class OperationSubcontrat(metaclass=PoolMeta):
     __name__ = 'production.operation'
 
@@ -420,7 +421,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
                 'create_purchase_request': {
                     'invisible': ((Eval('state') != 'planned') |
                         ~Bool(Eval('subcontracted_product',-1))),
-                    'readonly': (Bool(Eval('subcontracted_product',-1)))
+                    'readonly': (Bool(Eval('purchase_request',-1)))
                 },
             })
 
@@ -437,6 +438,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
         supplier_pattern['company'] = company.id
         supplier, purchase_date = Request.find_best_supplier(product,
             shortage_date, **supplier_pattern)
+
 
         location = self.production.warehouse
         request = Request(product=product,
@@ -464,14 +466,12 @@ class OperationSubcontrat(metaclass=PoolMeta):
             to_save.append(operation)
         cls.save(to_save)
 
-
     def get_cost(self, name):
         pool = Pool()
         cost = super().get_cost(name)
         if self.purchase_request and self.purchase_request.purchase_line:
             cost += self.purchase_request.purchase_line.amount
         return cost
-
 
     @classmethod
     def wait(cls, operations):
@@ -481,16 +481,16 @@ class OperationSubcontrat(metaclass=PoolMeta):
         op_warn = []
         config = Config(1)
 
-        op_warn = [op for op in operations if op.purchase_request]
-        if op_warn:
-            operation, = op_warn
-            key ='operation_%d' % operation.id
-            if config.check_state_operation == 'user_warning':
+        if config.check_state_operation == 'user_warning':
+            op_warn = [op for op in operations if op.purchase_request]
+            if op_warn:
+                operation, = op_warn
+                key ='operation_%d' % operation.id
                 if Warning.check(key):
                     raise UserWarning(key,
-                    gettext('production_operation.purchase_request_wait',
-                        production=operation.production.rec_name,
-                        operation=operation.rec_name))
+                        gettext('production_operation.purchase_request_wait',
+                            production=operation.production.rec_name,
+                            operation=operation.rec_name))
 
         super().wait(operations)
 
@@ -501,7 +501,6 @@ class OperationSubcontrat(metaclass=PoolMeta):
         requests = set([o.purchase_request for o in operations if
             o.purchase_request])
         purchases = [r.purchase for r in requests if r.purchase]
-        print("purchases:", purchases)
 
         for request in requests:
             if request.purchase:
@@ -520,15 +519,14 @@ class OperationSubcontrat(metaclass=PoolMeta):
         super().done(operations)
         Purchase.process(purchases)
 
-
     @classmethod
-    def copy(cls, lines, default=None):
+    def copy(cls, operations, default=None):
         if default is None:
             default = {}
         else:
             default = default.copy()
         default.setdefault('purchase_request', None)
-        super().copy(lines, default=default)
+        super().copy(operations, default=default)
 
 
 class PurchaseLine(metaclass=PoolMeta):
@@ -552,15 +550,16 @@ class PurchaseLine(metaclass=PoolMeta):
         return super()._get_invoice_line_quantity()
 
     @classmethod
+    def _get_origin(cls):
+        'Return list of Model names for origin Reference'
+        return [cls.__name__, 'production.operation']
+
+    @classmethod
     def get_origin(cls):
-        Model = Pool().get('ir.model')
-        models = Model.search([
-                ('model', '=', 'production.operation'),
-                ])
-        res = [(None, ''),]
-        for model in models:
-            res.append([model.model, model.name])
-        return res
+        IrModel = Pool().get('ir.model')
+        get_name = IrModel.get_name
+        models = cls._get_origin()
+        return [(None, '')] + [(m, get_name(m)) for m in models]
 
     @classmethod
     def copy(cls, lines, default=None):
@@ -575,17 +574,10 @@ class PurchaseLine(metaclass=PoolMeta):
 class PurchaseRequest(metaclass=PoolMeta):
     __name__ = 'purchase.request'
 
-
     @classmethod
-    def get_origin(cls):
-        Model = Pool().get('ir.model')
-        res = super(PurchaseRequest, cls).get_origin()
-        models = Model.search([
-                ('model', '=', 'production.operation'),
-                ])
-        for model in models:
-            res.append([model.model, model.name])
-        return res
+    def _get_origin(cls):
+        return super()._get_origin()  | {'production.operation'}
+
 
 class CreatePurchase(metaclass=PoolMeta):
     __name__ = 'purchase.request.create_purchase'
