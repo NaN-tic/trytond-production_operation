@@ -290,7 +290,7 @@ class Production(metaclass=PoolMeta):
         operation.work_center = route_operation.work_center
         operation.operation_type = route_operation.operation_type
         operation.route_operation = route_operation
-        if hasattr(Operation._fields_):
+        if hasattr(Operation, 'subcontracted_product'):
             operation.subcontracted_product = (
                 route_operation.subcontracted_product)
         return operation
