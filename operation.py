@@ -2,7 +2,7 @@ from decimal import Decimal
 from trytond.model import (fields, ModelSQL, ModelView, Workflow,
     sequence_ordered)
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If, Id
+from trytond.pyson import Eval, If, Id, Bool, And
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.exceptions import UserWarning, UserError
@@ -128,7 +128,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
         invalid_productions = Production.search([
                 ('id', 'in', productions),
-                ('state', 'in', cls._invalid_production_states_on_create),
+                ('state', 'in', ['done']),
                 ], limit=1)
 
         if invalid_productions:
@@ -270,20 +270,30 @@ class Production(metaclass=PoolMeta):
             'readonly': Eval('state') == 'done',
             })
 
+    def get_operation(self, route_operation):
+        Operation = Pool().get('production.operation')
+        values = Operation.default_get(
+                    list(Operation._fields.keys()), with_rec_name=False)
+
+        operation = Operation(**values)
+        operation.sequence = route_operation.sequence
+        operation.work_center_category = route_operation.work_center_category
+        operation.work_center = route_operation.work_center
+        operation.operation_type = route_operation.operation_type
+        operation.route_operation = route_operation
+        if hasattr(Operation, 'subcontracted_product'):
+            operation.subcontracted_product = (
+                route_operation.subcontracted_product)
+        return operation
+
     @fields.depends('route', 'operations')
     def on_change_route(self):
         Operation = Pool().get('production.operation')
         self.operations = None
         operations = []
         if self.route:
-            for operation in self.route.operations:
-                operation = Operation(
-                    sequence=operation.sequence,
-                    work_center_category=operation.work_center_category,
-                    work_center=operation.work_center,
-                    operation_type=operation.operation_type,
-                    route_operation=operation,
-                    )
+            for route_operation in self.route.operations:
+                operation = self.get_operation(route_operation)
                 operations.append(operation)
             self.operations = operations
 
@@ -386,3 +396,188 @@ class Production(metaclass=PoolMeta):
             operation_type=route_operation.operation_type,
             route_operation=route_operation,
             )
+
+
+class OperationSubcontrat(metaclass=PoolMeta):
+    __name__ = 'production.operation'
+
+    subcontracted_product = fields.Many2One('product.product',
+        'Subcontracted product', domain=[('type', '=', 'service')])
+    purchase_request = fields.Many2One('purchase.request', 'Purchase Request')
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls._buttons.update({
+                'create_purchase_request': {
+                    'invisible': ((Eval('state') != 'planned') |
+                        ~Bool(Eval('subcontracted_product',-1))),
+                    'readonly': (Bool(Eval('purchase_request',-1)))
+                },
+            })
+
+    def _get_purchase_request(self):
+        pool = Pool()
+        Request = pool.get('purchase.request')
+
+        product = self.subcontracted_product
+        uom = product.purchase_uom
+        quantity = 1
+        shortage_date = self.production.planned_date
+        company = self.production.company
+        supplier_pattern = {}
+        supplier_pattern['company'] = company.id
+        supplier, purchase_date = Request.find_best_supplier(product,
+            shortage_date, **supplier_pattern)
+
+
+        location = self.production.warehouse
+        request = Request(product=product,
+            party=None,
+            quantity=quantity,
+            uom=uom,
+            purchase_date=purchase_date,
+            supply_date=shortage_date,
+            company=company,
+            warehouse=location.id,
+            origin=self,
+            )
+        return request
+
+    @classmethod
+    @ModelView.button
+    def create_purchase_request(cls, operations):
+        pool = Pool()
+        to_save = []
+        for operation in operations:
+            if not operation.subcontracted_product:
+                continue
+            request = operation._get_purchase_request()
+            operation.purchase_request = request
+            to_save.append(operation)
+        cls.save(to_save)
+
+    def get_cost(self, name):
+        pool = Pool()
+        cost = super().get_cost(name)
+        if self.purchase_request and self.purchase_request.purchase_line:
+            cost += self.purchase_request.purchase_line.amount
+        return cost
+
+    @classmethod
+    def wait(cls, operations):
+        pool = Pool()
+        Config = pool.get('production.configuration')
+        Warning = pool.get('res.user.warning')
+        op_warn = []
+        config = Config(1)
+
+        if config.check_state_operation == 'user_warning':
+            op_warn = [op for op in operations if op.purchase_request]
+            if op_warn:
+                operation, = op_warn
+                key ='operation_%d' % operation.id
+                if Warning.check(key):
+                    raise UserWarning(key,
+                        gettext('production_operation.purchase_request_wait',
+                            production=operation.production.rec_name,
+                            operation=operation.rec_name))
+
+        super().wait(operations)
+
+    @classmethod
+    def done(cls, operations):
+        pool = Pool()
+        Purchase = pool.get('purchase.purchase')
+        requests = set([o.purchase_request for o in operations if
+            o.purchase_request])
+        purchases = [r.purchase for r in requests if r.purchase]
+
+        for request in requests:
+            if request.purchase:
+                continue
+            raise UserError(
+                gettext('production_operation.purchase_missing',
+                    request=request.rec_name))
+
+        for purchase in purchases:
+            if purchase.state in ('processing', 'done'):
+                continue
+            raise UserError(
+                gettext('production_operation.purchase_pending',
+                    purchase=purchase.rec_name))
+
+        super().done(operations)
+        Purchase.process(purchases)
+
+    @classmethod
+    def copy(cls, operations, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('purchase_request', None)
+        super().copy(operations, default=default)
+
+
+class PurchaseLine(metaclass=PoolMeta):
+    __name__ = 'purchase.line'
+
+    origin = fields.Reference('Origin', selection='get_origin', select=True,
+        states={
+            'readonly': Eval('state') != 'draft',
+            },
+        depends=['state'])
+
+    def _get_invoice_line_quantity(self):
+        pool = Pool()
+        ProductionOperation = pool.get('production.operation')
+        if not isinstance(self.origin, ProductionOperation):
+            return super()._get_invoice_line_quantity()
+
+        if not (self.purchase.invoice_method == 'shipment'
+               and self.origin.state == 'done'):
+            return 0
+        return super()._get_invoice_line_quantity()
+
+    @classmethod
+    def _get_origin(cls):
+        'Return list of Model names for origin Reference'
+        return [cls.__name__, 'production.operation']
+
+    @classmethod
+    def get_origin(cls):
+        IrModel = Pool().get('ir.model')
+        get_name = IrModel.get_name
+        models = cls._get_origin()
+        return [(None, '')] + [(m, get_name(m)) for m in models]
+
+    @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('origin', None)
+        super().copy(lines, default=default)
+
+
+class PurchaseRequest(metaclass=PoolMeta):
+    __name__ = 'purchase.request'
+
+    @classmethod
+    def _get_origin(cls):
+        return super()._get_origin()  | {'production.operation'}
+
+
+class CreatePurchase(metaclass=PoolMeta):
+    __name__ = 'purchase.request.create_purchase'
+
+    @classmethod
+    def compute_purchase_line(cls, key, requests, purchase):
+
+        line = super().compute_purchase_line(key, requests, purchase)
+        if requests:
+            request = requests[0]
+            line.origin = request.origin
+        return line
