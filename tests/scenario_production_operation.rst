@@ -15,7 +15,7 @@ Imports::
 
 Install production_operation Module::
 
-    >>> config = activate_modules('production_operation')
+    >>> config = activate_modules(['production_operation', 'purchase_request'])
 
 Create company::
 

@@ -12,3 +12,14 @@ def register():
         operation.OperationTracking,
         operation.Production,
         module='production_operation', type_='model')
+    Pool.register(
+        operation.OperationSubcontrat,
+        operation.PurchaseLine,
+        operation.PurchaseRequest,
+        depends=['purchase_request'],
+        module='production_operation', type_='model')
+    Pool.register(
+        operation.CreatePurchase,
+        depends=['purchase_request'],
+        module='production_operation', type_='wizard')
+

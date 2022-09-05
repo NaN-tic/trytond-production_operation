@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/field[@name='sequence']" position="after">
+        <newline/>
+        <label name="subcontracted_product"/>
+        <field name="subcontracted_product"/>
+        <label name="purchase_request"/>
+        <field name="purchase_request"/>
+        <button name="create_purchase_request" colspan="2"/>
+    </xpath>
+</data>
