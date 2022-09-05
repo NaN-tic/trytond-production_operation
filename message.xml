@@ -13,4 +13,16 @@ this repository contains the full copyright notices and license terms. -->
             <field name="text">Production "%(production)s" can not be done because their operation "%(operation)s" is not done.'</field>
         </record>
       </data>
+
+    <data grouped="1" depends="purchase_request">
+        <record model="ir.message" id="purchase_missing">
+            <field name="text">You can not finish an operation without create a purchase on Purchase request "%(request)s".</field>
+        </record>
+        <record model="ir.message" id="purchase_pending">
+            <field name="text">You can not finish an operation without finish  purchase "%(purchase)s".</field>
+        </record>
+        <record model="ir.message" id="purchase_request_wait">
+            <field name="text">Operation "%(operation)s" on Production "%(production)s" already has a purchase request".</field>
+        </record>
+    </data>
 </tryton>
