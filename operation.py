@@ -266,7 +266,10 @@ class Production(metaclass=PoolMeta):
             'readonly': ~Eval('state').in_(['request', 'draft']),
             })
     operations = fields.One2Many('production.operation', 'production',
-        'Operations', order=[('sequence', 'ASC')], states={
+        'Operations', order=[
+            ('sequence', 'ASC'),
+            ('id', 'ASC'),
+            ], states={
             'readonly': Eval('state') == 'done',
             })
 
