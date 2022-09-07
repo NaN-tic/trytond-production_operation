@@ -536,9 +536,9 @@ class PurchaseLine(metaclass=PoolMeta):
 
     origin = fields.Reference('Origin', selection='get_origin', select=True,
         states={
-            'readonly': Eval('state') != 'draft',
+            'readonly': Eval('purchase_state') != 'draft',
             },
-        depends=['state'])
+        depends=['purchase_state'])
 
     def _get_invoice_line_quantity(self):
         pool = Pool()
