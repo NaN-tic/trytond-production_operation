@@ -161,6 +161,8 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
 
         total = 0.
         for line in self.lines:
+            if not line.uom or not line.quantity:
+                continue
             total += Uom.compute_qty(line.uom, line.quantity,
                 self.work_center_category.uom)
         return total
