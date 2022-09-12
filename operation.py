@@ -522,7 +522,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
         else:
             default = default.copy()
         default.setdefault('purchase_request', None)
-        super().copy(operations, default=default)
+        return super().copy(operations, default=default)
 
 
 class PurchaseLine(metaclass=PoolMeta):
