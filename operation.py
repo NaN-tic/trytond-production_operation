@@ -407,7 +407,11 @@ class OperationSubcontrat(metaclass=PoolMeta):
     __name__ = 'production.operation'
 
     subcontracted_product = fields.Many2One('product.product',
-        'Subcontracted product', domain=[('type', '=', 'service')])
+        'Subcontracted product', domain=[('type', '=', 'service')],
+        context={
+            'company': Eval('company', -1),
+        },
+        depends={'company'})
     purchase_request = fields.Many2One('purchase.request', 'Purchase Request')
 
     @classmethod
