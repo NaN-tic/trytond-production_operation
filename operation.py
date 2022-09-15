@@ -549,7 +549,8 @@ class PurchaseLine(metaclass=PoolMeta):
     @classmethod
     def _get_origin(cls):
         'Return list of Model names for origin Reference'
-        return [cls.__name__, 'production.operation']
+        return [cls.__name__, 'production.operation', 'production',
+            'stock.order_point', 'purchase.request']
 
     @classmethod
     def get_origin(cls):
