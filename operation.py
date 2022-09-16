@@ -2,7 +2,7 @@ from decimal import Decimal
 from trytond.model import (fields, ModelSQL, ModelView, Workflow,
     sequence_ordered)
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, If, Id, Bool, And
+from trytond.pyson import Eval, If, Id, Bool
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.exceptions import UserWarning, UserError
@@ -290,7 +290,6 @@ class Production(metaclass=PoolMeta):
 
     @fields.depends('route', 'operations')
     def on_change_route(self):
-        Operation = Pool().get('production.operation')
         self.operations = None
         operations = []
         if self.route:
@@ -453,7 +452,6 @@ class OperationSubcontrat(metaclass=PoolMeta):
     @classmethod
     @ModelView.button
     def create_purchase_request(cls, operations):
-        pool = Pool()
         to_save = []
         for operation in operations:
             if not operation.subcontracted_product:
@@ -464,7 +462,6 @@ class OperationSubcontrat(metaclass=PoolMeta):
         cls.save(to_save)
 
     def get_cost(self, name):
-        pool = Pool()
         cost = super().get_cost(name)
         if self.purchase_request and self.purchase_request.purchase_line:
             cost += self.purchase_request.purchase_line.amount
@@ -549,8 +546,18 @@ class PurchaseLine(metaclass=PoolMeta):
     @classmethod
     def _get_origin(cls):
         'Return list of Model names for origin Reference'
-        return [cls.__name__, 'production.operation', 'production',
-            'stock.order_point', 'purchase.request']
+        origins = [cls.__name__, 'production.operation', 'production']
+        try:
+            Pool().get('stock.order_point')
+            origins += ['stock.order_point']
+        except KeyError:
+            pass
+        try:
+            Pool().get('purchase.request')
+            origins += ['purchase.request']
+        except KeyError:
+            pass
+        return origins
 
     @classmethod
     def get_origin(cls):
