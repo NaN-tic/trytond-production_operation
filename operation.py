@@ -424,10 +424,13 @@ class OperationSubcontrat(metaclass=PoolMeta):
     def _get_purchase_request(self):
         pool = Pool()
         Request = pool.get('purchase.request')
+        Uom = pool.get('product.uom')
 
         product = self.subcontracted_product
         uom = product.purchase_uom
-        quantity = 1
+        quantity = self.production and self.production.quantity
+        # TODO: add uom and domain to subcontracted product?
+        # quantity = Uom.compute_qty(self.production.uom, quantity, uom)
         shortage_date = self.production.planned_date
         company = self.production.company
         supplier_pattern = {}
