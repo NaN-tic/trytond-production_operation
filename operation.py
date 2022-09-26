@@ -517,7 +517,8 @@ class OperationSubcontrat(metaclass=PoolMeta):
                     purchase=purchase.rec_name))
 
         super().done(operations)
-        Purchase.process(purchases)
+        if purchases:
+            Purchase.process(purchases)
 
     @classmethod
     def copy(cls, operations, default=None):
