@@ -245,6 +245,9 @@ Check production is not done on last operation done::
     >>> Production = Model.get('production')
     >>> Operation = Model.get('production.operation')
     >>> ProductionConfiguration = Model.get('production.configuration')
+    >>> production_configuration = ProductionConfiguration(1)
+    >>> production_configuration.allow_done_production = False
+    >>> production_configuration.save()
     >>> production = Production()
     >>> production.product = product
     >>> production.route = route
