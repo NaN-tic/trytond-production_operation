@@ -6,5 +6,7 @@
         <newline/>
         <label name="check_state_operation"/>
         <field name="check_state_operation"/>
+        <label name="allow_done_production"/>
+        <field name="allow_done_production"/>
     </xpath>
 </data>
