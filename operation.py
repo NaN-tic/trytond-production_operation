@@ -189,6 +189,8 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     def done(cls, operations):
         pool = Pool()
         Production = pool.get('production')
+        Config = pool.get('production.configuration')
+        config = Config(1)
 
         productions = set([o.production for o in operations])
         cls.write(operations, {'state': 'done'})
@@ -201,7 +203,8 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
                     break
             if to_do:
                 to_done.append(production)
-        Production.done(to_done)
+        if config.allow_done_production:
+            Production.done(to_done)
 
 
 class OperationTracking(ModelSQL, ModelView):
