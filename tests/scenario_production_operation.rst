@@ -239,3 +239,28 @@ Make a production::
     'done'
     >>> production.cost
     Decimal('100.0000')
+
+Check production is not done on last operation done::
+
+    >>> Production = Model.get('production')
+    >>> Operation = Model.get('production.operation')
+    >>> ProductionConfiguration = Model.get('production.configuration')
+    >>> production_configuration = ProductionConfiguration(1)
+    >>> production_configuration.allow_done_production = False
+    >>> production_configuration.save()
+    >>> production = Production()
+    >>> production.product = product
+    >>> production.route = route
+    >>> production.bom = bom
+    >>> production.quantity = 2
+    >>> production.save()
+    >>> production.reload()
+    >>> Production.wait([production.id], config.context)
+    >>> Production.run([production.id], config.context)
+    >>> production.reload()
+    >>> operations = [o.id for o in production.operations]
+    >>> Operation.run(operations, config.context)
+    >>> Operation.done(operations, config.context)
+    >>> production.reload()
+    >>> production.state
+    'waiting'
