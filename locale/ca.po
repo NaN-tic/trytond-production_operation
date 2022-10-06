@@ -14,6 +14,10 @@ msgctxt "field:production.configuration,check_state_operation:"
 msgid "Check State Operation"
 msgstr "Comprovar estat operació"
 
+msgctxt "field:production.configuration,allow_done_production:"
+msgid "Allow Done Produciton"
+msgstr "Permetre realitzar producció"
+
 msgctxt "field:production.operation,company:"
 msgid "Company"
 msgstr "Empresa"
@@ -129,6 +133,10 @@ msgstr "Nom"
 msgctxt "help:production.configuration,check_state_operation:"
 msgid "Check state operation when done a production"
 msgstr "Comprova l'estat de les operacions quan es finalitza una producció"
+
+msgctxt "help:production.configuration,allow_done_production:"
+msgid "Allow done the productoin when finish the last operation"
+msgstr "Permentre finalitzar la producció quan es finalitza l'última operació"
 
 msgctxt "model:ir.action,name:"
 msgid "Operation Type"
