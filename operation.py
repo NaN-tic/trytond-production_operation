@@ -6,7 +6,7 @@ from trytond.pyson import Eval, If, Id, Bool
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.exceptions import UserWarning, UserError
-
+from trytond.modules.product import round_price
 
 __all__ = ['Operation', 'OperationTracking', 'Production']
 
@@ -329,8 +329,6 @@ class Production(metaclass=PoolMeta):
         pool = Pool()
         Config = pool.get('production.configuration')
         Operation = pool.get('production.operation')
-        Template = pool.get('product.template')
-        Product = pool.get('product.product')
         Warning = pool.get('res.user.warning')
 
         config = Config(1)
@@ -354,11 +352,6 @@ class Production(metaclass=PoolMeta):
                             production=operation.production.rec_name,
                             operation=operation.rec_name))
 
-        if hasattr(Product, 'cost_price'):
-            digits = Product.cost_price.digits
-        else:
-            digits = Template.cost_price.digits
-
         for production in productions:
             operation_cost = sum(o.cost for o in production.operations)
             if operation_cost == Decimal('0.0'):
@@ -366,8 +359,7 @@ class Production(metaclass=PoolMeta):
             total_quantity = Decimal(str(sum(o.quantity for o in
                         production.outputs)))
             if total_quantity:
-                added_unit_price = Decimal(operation_cost / total_quantity
-                    ).quantize(Decimal(str(10 ** -digits[1])))
+                added_unit_price = round_price(operation_cost / total_quantity)
                 for output in production.outputs:
                     output.unit_price += added_unit_price
                     output.save()
@@ -432,7 +424,6 @@ class OperationSubcontrat(metaclass=PoolMeta):
     def _get_purchase_request(self):
         pool = Pool()
         Request = pool.get('purchase.request')
-        Uom = pool.get('product.uom')
 
         product = self.subcontracted_product
         uom = product.purchase_uom
