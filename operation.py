@@ -462,9 +462,18 @@ class OperationSubcontrat(metaclass=PoolMeta):
         cls.save(to_save)
 
     def get_cost(self, name):
-        cost = super().get_cost(name)
+        pool = Pool()
+        Uom = pool.get('product.uom')
+
         if self.purchase_request and self.purchase_request.purchase_line:
-            cost += self.purchase_request.purchase_line.amount
+            cost = self.purchase_request.purchase_line.amount
+        elif self.subcontracted_product:
+            quantity = Uom.compute_qty(self.uom, self.total_quantity,
+                self.subcontracted_product.default_uom)
+            cost = (Decimal(str(quantity)) *
+                self.subcontracted_product.cost_price)
+        else:
+            cost = super().get_cost(name)
         return cost
 
     @classmethod
