@@ -536,7 +536,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
 class PurchaseLine(metaclass=PoolMeta):
     __name__ = 'purchase.line'
 
-    origin = fields.Reference('Origin', selection='get_origin', select=True,
+    origin = fields.Reference('Origin', selection='get_origin',
         states={
             'readonly': Eval('purchase_state') != 'draft',
             },
