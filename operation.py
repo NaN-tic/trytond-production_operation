@@ -381,17 +381,7 @@ class Production(metaclass=PoolMeta):
 
         self.operations = tuple()
         for route_operation in self.route.operations:
-            self.operations += (self._operation(route_operation), )
-
-    def _operation(self, route_operation):
-        Operation = Pool().get('production.operation')
-        return Operation(
-            sequence=route_operation.sequence,
-            work_center_category=route_operation.work_center_category,
-            work_center=route_operation.work_center,
-            operation_type=route_operation.operation_type,
-            route_operation=route_operation,
-            )
+            self.operations += (self.get_operation(route_operation), )
 
 
 class OperationSubcontrat(metaclass=PoolMeta):
