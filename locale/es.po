@@ -10,13 +10,13 @@ msgctxt "field:production,route:"
 msgid "Route"
 msgstr "Ruta"
 
-msgctxt "field:production.configuration,check_state_operation:"
-msgid "Check State Operation"
-msgstr "Comprobar estado operación"
-
 msgctxt "field:production.configuration,allow_done_production:"
 msgid "Allow Done Produciton"
 msgstr "Permitir realizar producción"
+
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "Comprobar estado operación"
 
 msgctxt "field:production.operation,company:"
 msgid "Company"
@@ -38,6 +38,10 @@ msgctxt "field:production.operation,production:"
 msgid "Production"
 msgstr "Producción"
 
+msgctxt "field:production.operation,purchase_request:"
+msgid "Purchase Request"
+msgstr "Solicitud de compra"
+
 msgctxt "field:production.operation,route_operation:"
 msgid "Route Operation"
 msgstr "Ruta de operación"
@@ -45,6 +49,10 @@ msgstr "Ruta de operación"
 msgctxt "field:production.operation,state:"
 msgid "State"
 msgstr "Estado"
+
+msgctxt "field:production.operation,subcontracted_product:"
+msgid "Subcontracted product"
+msgstr "Producto subcontratado"
 
 msgctxt "field:production.operation,total_quantity:"
 msgid "Total Quantity"
@@ -73,6 +81,11 @@ msgstr "Operación"
 msgctxt "field:production.operation.tracking,quantity:"
 msgid "Quantity"
 msgstr "Cantidad"
+
+#, fuzzy
+msgctxt "field:production.operation.tracking,unit_digits:"
+msgid "Unit Digits"
+msgstr "Dígitos unidad"
 
 msgctxt "field:production.operation.tracking,uom:"
 msgid "Uom"
@@ -130,15 +143,20 @@ msgctxt "field:production.work_center.category,name:"
 msgid "Name"
 msgstr "Nombre"
 
-msgctxt "help:production.configuration,check_state_operation:"
-msgid "Check state operation when done a production"
-msgstr ""
-"Comprueba el estado de las operaciones cuando se finaliza una producción"
+#, fuzzy
+msgctxt "field:purchase.line,origin:"
+msgid "Origin"
+msgstr "Origen"
 
 msgctxt "help:production.configuration,allow_done_production:"
 msgid "Allow done the productoin when finish the last operation"
 msgstr ""
 "Permitir finalizar la producción cuando se finaliza la última operación"
+
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr ""
+"Comprueba el estado de las operaciones cuando se finaliza una producción"
 
 msgctxt "model:ir.action,name:"
 msgid "Operation Type"
@@ -189,6 +207,30 @@ msgid ""
 msgstr ""
 " La producción \"%(production)s\" no se puede realizar porque su operación "
 "\"%(operation)s\" no se ha realizado \"."
+
+msgctxt "model:ir.message,text:purchase_missing"
+msgid ""
+"You can not finish an operation without create a purchase on Purchase "
+"request \"%(request)s\"."
+msgstr ""
+"No puedes finalizar una operación sin crear una solicitud de compra "
+"\"%(request)s\"."
+
+msgctxt "model:ir.message,text:purchase_pending"
+msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr "No puedes finalizar la operación sin finalizar la compra \"%(purchase)s\"."
+
+msgctxt "model:ir.message,text:purchase_request_wait"
+msgid ""
+"Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
+"purchase request\"."
+msgstr ""
+"La operación \"%(operation)s\" en la producción \"%(production)s\" ya tiene una"
+" solicitud de compra."
+
+msgctxt "model:ir.model.button,string:create_purchase_request_button"
+msgid "Create Purchase Request"
+msgstr "Crear solicitud de compra"
 
 msgctxt "model:ir.model.button,string:production_operation_cancel_button"
 msgid "Cancel"

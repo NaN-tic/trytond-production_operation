@@ -10,13 +10,13 @@ msgctxt "field:production,route:"
 msgid "Route"
 msgstr "Ruta"
 
-msgctxt "field:production.configuration,check_state_operation:"
-msgid "Check State Operation"
-msgstr "Comprovar estat operació"
-
 msgctxt "field:production.configuration,allow_done_production:"
 msgid "Allow Done Produciton"
 msgstr "Permetre realitzar producció"
+
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "Comprovar estat operació"
 
 msgctxt "field:production.operation,company:"
 msgid "Company"
@@ -38,6 +38,10 @@ msgctxt "field:production.operation,production:"
 msgid "Production"
 msgstr "Producció"
 
+msgctxt "field:production.operation,purchase_request:"
+msgid "Purchase Request"
+msgstr "Solicitud de compra"
+
 msgctxt "field:production.operation,route_operation:"
 msgid "Route Operation"
 msgstr "Ruta"
@@ -45,6 +49,10 @@ msgstr "Ruta"
 msgctxt "field:production.operation,state:"
 msgid "State"
 msgstr "Estat"
+
+msgctxt "field:production.operation,subcontracted_product:"
+msgid "Subcontracted product"
+msgstr "Producte subcontratat"
 
 msgctxt "field:production.operation,total_quantity:"
 msgid "Total Quantity"
@@ -73,6 +81,11 @@ msgstr "Operació"
 msgctxt "field:production.operation.tracking,quantity:"
 msgid "Quantity"
 msgstr "Quantitat"
+
+#, fuzzy
+msgctxt "field:production.operation.tracking,unit_digits:"
+msgid "Unit Digits"
+msgstr "Dígits unitat"
 
 msgctxt "field:production.operation.tracking,uom:"
 msgid "Uom"
@@ -130,6 +143,11 @@ msgctxt "field:production.work_center.category,name:"
 msgid "Name"
 msgstr "Nom"
 
+#, fuzzy
+msgctxt "field:purchase.line,origin:"
+msgid "Origin"
+msgstr "Origen"
+
 msgctxt "help:production.configuration,check_state_operation:"
 msgid "Check state operation when done a production"
 msgstr "Comprova l'estat de les operacions quan es finalitza una producció"
@@ -137,6 +155,11 @@ msgstr "Comprova l'estat de les operacions quan es finalitza una producció"
 msgctxt "help:production.configuration,allow_done_production:"
 msgid "Allow done the productoin when finish the last operation"
 msgstr "Permentre finalitzar la producció quan es finalitza l'última operació"
+
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr ""
+"Comprova l'estat de les operacions quan és finalitzar una producció"
 
 msgctxt "model:ir.action,name:"
 msgid "Operation Type"
@@ -185,6 +208,30 @@ msgid ""
 msgstr ""
 "La producció \"%(production)s\" no es pot fer perquè la seva operació "
 "\"%(operation)s\" no s'ha fet. '"
+
+msgctxt "model:ir.message,text:purchase_missing"
+msgid ""
+"You can not finish an operation without create a purchase on Purchase "
+"request \"%(request)s\"."
+msgstr ""
+"No pots finalitzar una operación sense crear una solicitud de compra "
+"\"%(request)s\"."
+
+msgctxt "model:ir.message,text:purchase_pending"
+msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr "No pots finalitzar una operació sense finalitzar la compra \"%(purchase)s\"."
+
+msgctxt "model:ir.message,text:purchase_request_wait"
+msgid ""
+"Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
+"purchase request\"."
+msgstr ""
+"L'operació \"%(operation)s\" en la producció \"%(production)s\" ya té una"
+" solicitud de compra."
+
+msgctxt "model:ir.model.button,string:create_purchase_request_button"
+msgid "Create Purchase Request"
+msgstr "Crear solicitud de compra"
 
 msgctxt "model:ir.model.button,string:production_operation_cancel_button"
 msgid "Cancel"
