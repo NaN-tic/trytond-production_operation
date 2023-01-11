@@ -276,6 +276,7 @@ class Production(metaclass=PoolMeta):
     __name__ = 'production'
 
     route = fields.Many2One('production.route', 'Route',
+        domain = [('uom.category', '=', Eval('uom_category'))],
         states={
             'readonly': ~Eval('state').in_(['request', 'draft']),
             })
@@ -283,6 +284,15 @@ class Production(metaclass=PoolMeta):
         'Operations', order=[('sequence', 'ASC')], states={
             'readonly': Eval('state') == 'done',
             })
+    uom_category = fields.Function(fields.Many2One('product.uom.category',
+        'Uom Category'), 'on_change_with_uom_category')
+
+
+    @fields.depends('uom')
+    def on_change_with_uom_category(self, name=None):
+        if not self.uom:
+            return
+        return self.uom and self.uom.category and self.uom.category.id
 
     def get_operation(self, route_operation):
         Operation = Pool().get('production.operation')
