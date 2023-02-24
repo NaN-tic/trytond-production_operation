@@ -203,7 +203,6 @@ Make a production::
     >>> production.state
     'waiting'
     >>> Production.assign_try([production.id], config.context)
-    True
     >>> production.reload()
     >>> all(i.state == 'assigned' for i in production.inputs)
     True
