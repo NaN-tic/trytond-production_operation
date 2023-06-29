@@ -586,9 +586,14 @@ class CreatePurchase(metaclass=PoolMeta):
 
     @classmethod
     def compute_purchase_line(cls, key, requests, purchase):
+        Line = Pool().get('purchase.line')
 
         line = super().compute_purchase_line(key, requests, purchase)
-        if requests:
-            request = requests[0]
-            line.origin = request.origin
+
+        origins = [k[0] for k in Line.get_origin()]
+
+        for origin in [request.origin for request in requests if request.origin]:
+            if origin.__name__ in origins:
+                line.origin = origin
+                break
         return line
