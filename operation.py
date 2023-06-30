@@ -554,6 +554,11 @@ class PurchaseLine(metaclass=PoolMeta):
             origins += ['purchase.request']
         except KeyError:
             pass
+        try:
+            Pool().get('sale.sale')
+            origins += ['sale.sale']
+        except KeyError:
+            pass
         return origins
 
     @classmethod
