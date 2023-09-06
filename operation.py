@@ -599,8 +599,10 @@ class CreatePurchase(metaclass=PoolMeta):
         line = super().compute_purchase_line(key, requests, purchase)
 
         origins = [k[0] for k in Line.get_origin()]
-
         for origin in [request.origin for request in requests if request.origin]:
+            # not add in case origin is stock.order_point,-1 (str)
+            if isinstance(origin, str):
+                continue
             if origin.__name__ in origins:
                 line.origin = origin
                 break
