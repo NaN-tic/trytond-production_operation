@@ -7,7 +7,7 @@
             <field name="operations" colspan="4"/>
         </page>
     </xpath>
-    <xpath expr="/form/field[@name='uom']" position="after">
+    <xpath expr="/form/field[@name='unit']" position="after">
         <label name="route"/>
         <field name="route"/>
     </xpath>
