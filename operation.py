@@ -122,6 +122,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         pool = Pool()
         Production = pool.get('production')
         Warning = pool.get('res.user.warning')
+        vlist = [x.copy() for x in vlist]
         productions = []
         for value in vlist:
             productions.append(value['production'])
