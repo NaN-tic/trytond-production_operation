@@ -13,7 +13,6 @@ __all__ = ['Operation', 'OperationTracking', 'Production']
 STATES = {
     'readonly': Eval('state').in_(['running', 'done'])
     }
-DEPENDS = ['state']
 
 
 class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
@@ -21,17 +20,17 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     __name__ = 'production.operation'
 
     production = fields.Many2One('production', 'Production', required=True,
-        states=STATES, depends=DEPENDS, ondelete='CASCADE')
+        states=STATES, ondelete='CASCADE')
     work_center_category = fields.Many2One('production.work_center.category',
-        'Work Center Category', states=STATES, depends=DEPENDS, required=True)
+        'Work Center Category', states=STATES, required=True)
     work_center = fields.Many2One('production.work_center', 'Work Center',
-        states=STATES, depends=DEPENDS + ['work_center_category'], domain=[
+        states=STATES, domain=[
             ('category', '=', Eval('work_center_category'),
             )])
     route_operation = fields.Many2One('production.route.operation',
-        'Route Operation', states=STATES, depends=DEPENDS)
+        'Route Operation', states=STATES)
     lines = fields.One2Many('production.operation.tracking', 'operation',
-        'Lines', states=STATES, depends=DEPENDS, context={
+        'Lines', states=STATES, context={
             'work_center_category': Eval('work_center_category'),
             'work_center': Eval('work_center'),
             })
@@ -39,7 +38,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
     total_quantity = fields.Function(fields.Float('Total Quantity'),
         'get_total_quantity')
     operation_type = fields.Many2One('production.operation.type',
-        'Operation Type', states=STATES, depends=DEPENDS, required=True)
+        'Operation Type', states=STATES, required=True)
     state = fields.Selection([
             ('cancelled', 'Canceled'),
             ('planned', 'Planned'),
