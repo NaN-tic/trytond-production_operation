@@ -94,7 +94,7 @@
 
         <record model="ir.rule.group" id="rule_group_production_operation">
             <field name="name">User in companies</field>
-            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
             <field name="global_p" eval="True"/>
         </record>
         <record model="ir.rule" id="rule_production_operation">
@@ -187,7 +187,7 @@
 
         <record model="ir.rule.group" id="rule_group_production_operation_tracking">
             <field name="name">User in companies</field>
-            <field name="model" search="[('model', '=', 'production.operation.tracking')]"/>
+            <field name="model">production.operation.tracking</field>
             <field name="global_p" eval="True"/>
         </record>
         <record model="ir.rule" id="rule_production_operation_tracking">
