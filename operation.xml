@@ -66,8 +66,7 @@
         </record>
 
         <record model="ir.model.access" id="default_access_production_operation">
-            <field name="model"
-                search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -75,16 +74,14 @@
         </record>
 
         <record model="ir.model.access" id="access_production_operation">
-            <field name="model"
-                search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
         <record model="ir.model.access" id="access_production_operation_group_production">
-            <field name="model"
-                search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
             <field name="group" ref="production.group_production"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -107,22 +104,22 @@
         <record model="ir.model.button" id="production_operation_cancel_button">
             <field name="name">cancel</field>
             <field name="string">Cancel</field>
-            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
         </record>
         <record model="ir.model.button" id="production_operation_wait_button">
             <field name="name">wait</field>
             <field name="string">Wait</field>
-            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
         </record>
         <record model="ir.model.button" id="production_operation_run_button">
             <field name="name">run</field>
             <field name="string">Run</field>
-            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
         </record>
         <record model="ir.model.button" id="production_operation_done_button">
             <field name="name">done</field>
             <field name="string">Done</field>
-            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
         </record>
 
         <!-- production.operation.tracking -->
@@ -157,8 +154,7 @@
 
         <record model="ir.model.access"
                 id="default_access_production_operation_tracking">
-            <field name="model"
-                    search="[('model', '=', 'production.operation.tracking')]"/>
+            <field name="model">production.operation.tracking</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -167,8 +163,7 @@
 
         <record model="ir.model.access"
                 id="access_production_operation_tracking">
-            <field name="model"
-                    search="[('model', '=', 'production.operation.tracking')]"/>
+            <field name="model">production.operation.tracking</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -176,8 +171,7 @@
         </record>
         <record model="ir.model.access"
                 id="access_production_operation_tracking_group_production">
-            <field name="model"
-                    search="[('model', '=', 'production.operation.tracking')]"/>
+            <field name="model">production.operation.tracking</field>
             <field name="group" ref="production.group_production"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -227,7 +221,7 @@
         <record model="ir.model.button" id="create_purchase_request_button">
             <field name="name">create_purchase_request</field>
             <field name="string">Create Purchase Request</field>
-            <field name="model" search="[('model', '=', 'production.operation')]"/>
+            <field name="model">production.operation</field>
         </record>
 
     </data>
