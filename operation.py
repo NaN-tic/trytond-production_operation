@@ -204,7 +204,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
             if to_do:
                 to_done.append(production)
         if config.allow_done_production:
-            Production.done(to_done)
+            Production.do(to_done)
 
 
 class OperationTracking(ModelSQL, ModelView):
@@ -319,7 +319,7 @@ class Production(metaclass=PoolMeta):
             Operation.wait(operations)
 
     @classmethod
-    def done(cls, productions):
+    def do(cls, productions):
         pool = Pool()
         Config = pool.get('production.configuration')
         Operation = pool.get('production.operation')
@@ -358,7 +358,7 @@ class Production(metaclass=PoolMeta):
                     output.unit_price += added_unit_price
                     output.save()
 
-        super(Production, cls).done(productions)
+        super(Production, cls).do(productions)
 
     def get_cost(self, name):
         cost = super(Production, self).get_cost(name)

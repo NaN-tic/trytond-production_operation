@@ -212,7 +212,7 @@ Make a production::
     True
     >>> all(o.state == 'waiting' for o in production.operations)
     True
-    >>> Production.done([production.id], config.context)  # doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> Production.do([production.id], config.context)  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
     UserError: ...
