@@ -575,7 +575,7 @@ class PurchaseLine(metaclass=PoolMeta):
         else:
             default = default.copy()
         default.setdefault('origin', None)
-        super().copy(lines, default=default)
+        return super().copy(lines, default=default)
 
 
 class PurchaseRequest(metaclass=PoolMeta):
