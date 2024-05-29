@@ -151,7 +151,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         return super(Operation, cls).copy(operations, default)
 
     def get_cost(self, name):
-        cost = Decimal('0.0')
+        cost = Decimal(0)
         for line in self.lines:
             cost += line.cost
         return cost
@@ -244,7 +244,7 @@ class OperationTracking(ModelSQL, ModelView):
         work_center = (self.operation.work_center or
             self.operation.work_center_category)
         if not work_center:
-            return Decimal('0.0')
+            return Decimal(0)
         quantity = Uom.compute_qty(self.uom, self.quantity,
             work_center.uom)
         return Decimal(str(quantity)) * work_center.cost_price
@@ -348,7 +348,7 @@ class Production(metaclass=PoolMeta):
 
         for production in productions:
             operation_cost = sum(o.cost for o in production.operations)
-            if operation_cost == Decimal('0.0'):
+            if operation_cost == Decimal(0):
                 continue
             total_quantity = Decimal(str(sum(o.quantity for o in
                         production.outputs)))
