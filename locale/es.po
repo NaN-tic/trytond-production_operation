@@ -192,7 +192,7 @@ msgstr "En espera"
 
 msgctxt "model:ir.message,text:invalid_production_state"
 msgid "You can not create an operation for Production \"%(production)s\"."
-msgstr "No puede crear una operación para Producción \"%(producción)s\"."
+msgstr "No puede crear una operación para Producción \"%(production)s\"."
 
 msgctxt "model:ir.message,text:no_work_center"
 msgid "We can not found any work center for  Operation \"%(operation)s\"."
