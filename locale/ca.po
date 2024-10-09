@@ -161,10 +161,6 @@ msgid "Check state operation when done a production"
 msgstr ""
 "Comprova l'estat de les operacions quan és finalitzar una producció"
 
-msgctxt "model:ir.action,name:"
-msgid "Operation Type"
-msgstr "Tipus d'operació"
-
 msgctxt "model:ir.action,name:act_production_operation"
 msgid "Operation"
 msgstr "Operació"
