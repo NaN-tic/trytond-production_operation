@@ -252,10 +252,6 @@ msgctxt "model:ir.rule.group,name:rule_group_production_operation_tracking"
 msgid "User in companies"
 msgstr "Usuario en las empresas"
 
-msgctxt "model:ir.ui.menu,name:"
-msgid "Operation Types"
-msgstr "Tipos de operación"
-
 msgctxt "model:ir.ui.menu,name:menu_production_operation"
 msgid "Operations"
 msgstr "Operaciones"
