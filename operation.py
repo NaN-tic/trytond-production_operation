@@ -414,7 +414,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
         Request = pool.get('purchase.request')
 
         product = self.subcontracted_product
-        uom = product.purchase_uom
+        unit = product.purchase_uom
         quantity = self.production and self.production.quantity
         # TODO: add uom and domain to subcontracted product?
         # quantity = Uom.compute_qty(self.production.uom, quantity, uom)
@@ -430,7 +430,7 @@ class OperationSubcontrat(metaclass=PoolMeta):
         request = Request(product=product,
             party=None,
             quantity=quantity,
-            uom=uom,
+            unit=unit,
             purchase_date=purchase_date,
             supply_date=shortage_date,
             company=company,
