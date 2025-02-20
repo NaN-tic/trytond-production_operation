@@ -1,6 +1,17 @@
 #
+# albert, 2025.
 msgid ""
-msgstr "Content-Type: text/plain; charset=utf-8\n"
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: albert\n"
+"PO-Revision-Date: 2025-02-20 16:51+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: Catalan <>\n"
+"Language: ca_ES\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 msgctxt "field:production,operations:"
 msgid "Operations"
@@ -82,11 +93,6 @@ msgctxt "field:production.operation.tracking,quantity:"
 msgid "Quantity"
 msgstr "Cantidad"
 
-#, fuzzy
-msgctxt "field:production.operation.tracking,unit_digits:"
-msgid "Unit Digits"
-msgstr "Dígitos unidad"
-
 msgctxt "field:production.operation.tracking,uom:"
 msgid "Uom"
 msgstr "UdM"
@@ -143,7 +149,6 @@ msgctxt "field:production.work_center.category,name:"
 msgid "Name"
 msgstr "Nombre"
 
-#, fuzzy
 msgctxt "field:purchase.line,origin:"
 msgid "Origin"
 msgstr "Origen"
@@ -213,16 +218,18 @@ msgstr ""
 "\"%(request)s\"."
 
 msgctxt "model:ir.message,text:purchase_pending"
-msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
-msgstr "No puedes finalizar la operación sin finalizar la compra \"%(purchase)s\"."
+msgid ""
+"You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr ""
+"No puedes finalizar la operación sin finalizar la compra \"%(purchase)s\"."
 
 msgctxt "model:ir.message,text:purchase_request_wait"
 msgid ""
 "Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
 "purchase request\"."
 msgstr ""
-"La operación \"%(operation)s\" en la producción \"%(production)s\" ya tiene una"
-" solicitud de compra."
+"La operación \"%(operation)s\" en la producción \"%(production)s\" ya tiene "
+"una solicitud de compra."
 
 msgctxt "model:ir.model.button,string:create_purchase_request_button"
 msgid "Create Purchase Request"
