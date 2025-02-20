@@ -3,6 +3,6 @@
 copyright notices and license terms. -->
 <data>
     <xpath expr="/tree/field[@name='product_supplier']" position="after">
-        <field name="origin"/>
+        <field name="origin" optional="0"/>
     </xpath>
 </data>
