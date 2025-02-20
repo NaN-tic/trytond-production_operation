@@ -1,6 +1,17 @@
 #
+# albert, 2025.
 msgid ""
-msgstr "Content-Type: text/plain; charset=utf-8\n"
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: albert\n"
+"PO-Revision-Date: 2025-02-20 16:51+0100\n"
+"Project-Id-Version: \n"
+"Language-Team: Catalan <>\n"
+"Language: ca_ES\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 msgctxt "field:production,operations:"
 msgid "Operations"
@@ -82,11 +93,6 @@ msgctxt "field:production.operation.tracking,quantity:"
 msgid "Quantity"
 msgstr "Quantitat"
 
-#, fuzzy
-msgctxt "field:production.operation.tracking,unit_digits:"
-msgid "Unit Digits"
-msgstr "Dígits unitat"
-
 msgctxt "field:production.operation.tracking,uom:"
 msgid "Uom"
 msgstr "UdM"
@@ -143,14 +149,9 @@ msgctxt "field:production.work_center.category,name:"
 msgid "Name"
 msgstr "Nom"
 
-#, fuzzy
 msgctxt "field:purchase.line,origin:"
 msgid "Origin"
 msgstr "Origen"
-
-msgctxt "help:production.configuration,check_state_operation:"
-msgid "Check state operation when done a production"
-msgstr "Comprova l'estat de les operacions quan es finalitza una producció"
 
 msgctxt "help:production.configuration,allow_done_production:"
 msgid "Allow done the productoin when finish the last operation"
@@ -158,8 +159,7 @@ msgstr "Permentre finalitzar la producció quan es finalitza l'última operació
 
 msgctxt "help:production.configuration,check_state_operation:"
 msgid "Check state operation when done a production"
-msgstr ""
-"Comprova l'estat de les operacions quan és finalitzar una producció"
+msgstr "Comprova l'estat de les operacions quan es finalitza una producció"
 
 msgctxt "model:ir.action,name:act_production_operation"
 msgid "Operation"
@@ -195,7 +195,8 @@ msgstr "No podeu crear una operació per a la producció \"%(production)s\"."
 
 msgctxt "model:ir.message,text:no_work_center"
 msgid "We can not found any work center for  Operation \"%(operation)s\"."
-msgstr "No hem trobat cap centre de treball per a l'operació \"%(operation)s\"."
+msgstr ""
+"No hem trobat cap centre de treball per a l'operació \"%(operation)s\"."
 
 msgctxt "model:ir.message,text:pending_operations"
 msgid ""
@@ -214,16 +215,18 @@ msgstr ""
 "\"%(request)s\"."
 
 msgctxt "model:ir.message,text:purchase_pending"
-msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
-msgstr "No pots finalitzar una operació sense finalitzar la compra \"%(purchase)s\"."
+msgid ""
+"You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr ""
+"No pots finalitzar una operació sense finalitzar la compra \"%(purchase)s\"."
 
 msgctxt "model:ir.message,text:purchase_request_wait"
 msgid ""
 "Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
 "purchase request\"."
 msgstr ""
-"L'operació \"%(operation)s\" en la producció \"%(production)s\" ya té una"
-" solicitud de compra."
+"L'operació \"%(operation)s\" en la producció \"%(production)s\" ya té una "
+"solicitud de compra."
 
 msgctxt "model:ir.model.button,string:create_purchase_request_button"
 msgid "Create Purchase Request"
