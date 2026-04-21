@@ -538,7 +538,7 @@ class PurchaseLine(metaclass=PoolMeta):
         if not isinstance(self.origin, ProductionOperation):
             return super()._get_invoice_line_quantity()
 
-        if not (self.purchase.invoice_method == 'shipment'
+        if not (self.purchase.invoice_method == 'fulfillment'
                and self.origin.state == 'done'):
             return 0
         return super()._get_invoice_line_quantity()
