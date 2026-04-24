@@ -214,6 +214,9 @@ class Test(unittest.TestCase):
         production.save()
         production.reload()
         self.assertEqual(len(production.operations), 3)
+        planned_operations = [
+            o.id for o in production.operations if o.state == 'planned']
+        Operation.wait(planned_operations, config.context)
         operations = [o.id for o in production.operations]
         Operation.run(operations, config.context)
         Operation.done(operations, config.context)
@@ -236,10 +239,11 @@ class Test(unittest.TestCase):
         production.save()
         production.reload()
         Production.wait([production.id], config.context)
+        Production.assign_force([production.id], config.context)
         Production.run([production.id], config.context)
         production.reload()
         operations = [o.id for o in production.operations]
         Operation.run(operations, config.context)
         Operation.done(operations, config.context)
         production.reload()
-        self.assertEqual(production.state, 'waiting')
+        self.assertEqual(production.state, 'running')
