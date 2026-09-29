@@ -186,6 +186,7 @@ class Operation(sequence_ordered(), Workflow, ModelSQL, ModelView):
         pass
 
     @classmethod
+    @ModelView.button
     def done(cls, operations):
         pool = Pool()
         Production = pool.get('production')
@@ -281,7 +282,10 @@ class Production(metaclass=PoolMeta):
     def get_operation(self, route_operation):
         Operation = Pool().get('production.operation')
         values = Operation.default_get(
-                    list(Operation._fields.keys()), with_rec_name=False)
+                    [
+                            name for name, field in Operation._fields.items()
+                            if not field.readonly
+                            ], with_rec_name=False)
 
         operation = Operation(**values)
         operation.sequence = route_operation.sequence
