@@ -192,6 +192,9 @@ class Test(unittest.TestCase):
         production.reload()
         self.assertEqual(all(i.state == 'assigned' for i in production.inputs),
                          True)
+        # Operations may have already been started independently from the
+        # production workflow.
+        Operation.wait([production.operations[0].id], config.context)
         Production.run([production.id], config.context)
         production.reload()
         self.assertEqual(all(i.state == 'done' for i in production.inputs),
