@@ -317,7 +317,9 @@ class Production(metaclass=PoolMeta):
 
         operations = []
         for production in productions:
-            operations.extend(production.operations)
+            operations.extend(
+                operation for operation in production.operations
+                if operation.state == 'planned')
 
         if operations:
             Operation.wait(operations)
