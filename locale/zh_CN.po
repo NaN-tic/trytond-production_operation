@@ -1,0 +1,348 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:production,operations:"
+msgid "Operations"
+msgstr "交易"
+
+msgctxt "field:production,route:"
+msgid "Route"
+msgstr "工艺路线"
+
+msgctxt "field:production.configuration,allow_done_production:"
+msgid "Allow Done Produciton"
+msgstr "允许完成生产"
+
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "检查工序状态"
+
+msgctxt "field:production.operation,company:"
+msgid "Company"
+msgstr "公司"
+
+msgctxt "field:production.operation,cost:"
+msgid "Cost"
+msgstr "成本"
+
+msgctxt "field:production.operation,lines:"
+msgid "Lines"
+msgstr "明细"
+
+msgctxt "field:production.operation,operation_type:"
+msgid "Operation Type"
+msgstr "交易类型"
+
+msgctxt "field:production.operation,production:"
+msgid "Production"
+msgstr "生产"
+
+msgctxt "field:production.operation,purchase_request:"
+msgid "Purchase Request"
+msgstr "采购申请"
+
+msgctxt "field:production.operation,route_operation:"
+msgid "Route Operation"
+msgstr "工艺路线工序"
+
+msgctxt "field:production.operation,state:"
+msgid "State"
+msgstr "状态"
+
+msgctxt "field:production.operation,subcontracted_product:"
+msgid "Subcontracted product"
+msgstr "委外产品"
+
+msgctxt "field:production.operation,total_quantity:"
+msgid "Total Quantity"
+msgstr "总数量"
+
+msgctxt "field:production.operation,work_center:"
+msgid "Work Center"
+msgstr "工作中心"
+
+msgctxt "field:production.operation,work_center_category:"
+msgid "Work Center Category"
+msgstr "工作中心类别"
+
+msgctxt "field:production.operation.tracking,company:"
+msgid "Company"
+msgstr "公司"
+
+msgctxt "field:production.operation.tracking,cost:"
+msgid "Cost"
+msgstr "成本"
+
+msgctxt "field:production.operation.tracking,operation:"
+msgid "Operation"
+msgstr "操作"
+
+msgctxt "field:production.operation.tracking,quantity:"
+msgid "Quantity"
+msgstr "数量"
+
+msgctxt "field:production.operation.tracking,uom:"
+msgid "Uom"
+msgstr "计量单位"
+
+msgctxt "field:production.operation.type,name:"
+msgid "Name"
+msgstr "名称"
+
+msgctxt "field:production.route,name:"
+msgid "Name"
+msgstr "名称"
+
+msgctxt "field:production.route,operations:"
+msgid "Operations"
+msgstr "交易"
+
+msgctxt "field:production.route.operation,operation_type:"
+msgid "Operation Type"
+msgstr "交易类型"
+
+msgctxt "field:production.route.operation,route:"
+msgid "Route"
+msgstr "工艺路线"
+
+msgctxt "field:production.route.operation,work_center:"
+msgid "Work Center"
+msgstr "工作中心"
+
+msgctxt "field:production.work_center,category:"
+msgid "Category"
+msgstr "类别"
+
+msgctxt "field:production.work_center,cost_price:"
+msgid "Cost Price"
+msgstr "成本价"
+
+msgctxt "field:production.work_center,employee:"
+msgid "Employee"
+msgstr "雇员"
+
+msgctxt "field:production.work_center,name:"
+msgid "Name"
+msgstr "名称"
+
+msgctxt "field:production.work_center,type:"
+msgid "Type"
+msgstr "科目"
+
+msgctxt "field:production.work_center,uom:"
+msgid "Uom"
+msgstr "计量单位"
+
+msgctxt "field:production.work_center.category,name:"
+msgid "Name"
+msgstr "名称"
+
+msgctxt "field:purchase.line,origin:"
+msgid "Origin"
+msgstr "依据"
+
+msgctxt "help:production.configuration,allow_done_production:"
+msgid "Allow done the productoin when finish the last operation"
+msgstr "最后一道工序结束时允许完成生产"
+
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr "完成生产时检查工序状态"
+
+msgctxt "model:ir.action,name:act_production_operation"
+msgid "Operation"
+msgstr "操作"
+
+msgctxt "model:ir.action,name:act_production_operation_tracking"
+msgid "Operation Tracking"
+msgstr "工序跟踪"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_all"
+msgid "All"
+msgstr "全部"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_planned"
+msgid "Planned"
+msgstr "已计划"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_running"
+msgid "Running"
+msgstr "运行中"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_waiting"
+msgid "Waiting"
+msgstr "等待"
+
+#, python-format
+msgctxt "model:ir.message,text:invalid_production_state"
+msgid "You can not create an operation for Production \"%(production)s\"."
+msgstr "无法为生产“%(production)s”创建工序。"
+
+#, python-format
+msgctxt "model:ir.message,text:no_work_center"
+msgid "We can not found any work center for  Operation \"%(operation)s\"."
+msgstr "找不到工序“%(operation)s”的工作中心。"
+
+#, python-format
+msgctxt "model:ir.message,text:pending_operations"
+msgid ""
+"Production \"%(production)s\" can not be done because their operation "
+"\"%(operation)s\" is not done.'"
+msgstr "无法完成生产“%(production)s”，因为其工序“%(operation)s”尚未完成。'"
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_missing"
+msgid ""
+"You can not finish an operation without create a purchase on Purchase "
+"request \"%(request)s\"."
+msgstr "采购申请“%(request)s”尚未创建采购单，无法完成工序。"
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_pending"
+msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr "采购单“%(purchase)s”尚未完成，无法完成工序。"
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_request_wait"
+msgid ""
+"Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
+"purchase request\"."
+msgstr "生产“%(production)s”的工序“%(operation)s”已有采购申请。"
+
+msgctxt "model:ir.model.button,string:create_purchase_request_button"
+msgid "Create Purchase Request"
+msgstr "创建采购申请"
+
+msgctxt "model:ir.model.button,string:production_operation_cancel_button"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "model:ir.model.button,string:production_operation_done_button"
+msgid "Done"
+msgstr "完成"
+
+msgctxt "model:ir.model.button,string:production_operation_run_button"
+msgid "Run"
+msgstr "运行"
+
+msgctxt "model:ir.model.button,string:production_operation_wait_button"
+msgid "Wait"
+msgstr "等待"
+
+msgctxt "model:ir.rule.group,name:rule_group_production_operation"
+msgid "User in companies"
+msgstr "公司用户"
+
+msgctxt "model:ir.rule.group,name:rule_group_production_operation_tracking"
+msgid "User in companies"
+msgstr "公司用户"
+
+msgctxt "model:ir.ui.menu,name:menu_production_operation"
+msgid "Operations"
+msgstr "交易"
+
+msgctxt "model:production.operation,name:"
+msgid "Operation"
+msgstr "操作"
+
+msgctxt "model:production.operation.tracking,name:"
+msgid "operation.tracking"
+msgstr "工序跟踪"
+
+msgctxt "model:production.operation.type,name:"
+msgid "Operation Type"
+msgstr "交易类型"
+
+msgctxt "model:production.route,name:"
+msgid "Production Route"
+msgstr "生产工艺路线"
+
+msgctxt "model:production.route.operation,name:"
+msgid "Route Operation"
+msgstr "工艺路线工序"
+
+msgctxt "model:production.work_center,name:"
+msgid "Work Center"
+msgstr "工作中心"
+
+msgctxt "model:production.work_center.category,name:"
+msgid "Work Center Category"
+msgstr "工作中心类别"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Error"
+msgstr "用户错误"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Warning"
+msgstr "用户警告"
+
+msgctxt "selection:production.operation,state:"
+msgid "Canceled"
+msgstr "已取消"
+
+msgctxt "selection:production.operation,state:"
+msgid "Done"
+msgstr "完成"
+
+msgctxt "selection:production.operation,state:"
+msgid "Planned"
+msgstr "已计划"
+
+msgctxt "selection:production.operation,state:"
+msgid "Running"
+msgstr "运行中"
+
+msgctxt "selection:production.operation,state:"
+msgid "Waiting"
+msgstr "等待"
+
+msgctxt "selection:production.work_center,type:"
+msgid "Employee"
+msgstr "雇员"
+
+msgctxt "selection:production.work_center,type:"
+msgid "Machine"
+msgstr "机器"
+
+msgctxt "view:production.operation.tracking:"
+msgid "Operation Tracking"
+msgstr "工序跟踪"
+
+msgctxt "view:production.operation.type:"
+msgid "Operation Type"
+msgstr "交易类型"
+
+msgctxt "view:production.operation:"
+msgid "Lines"
+msgstr "明细"
+
+msgctxt "view:production.route.operation:"
+msgid "Route Operation"
+msgstr "工艺路线工序"
+
+msgctxt "view:production.route:"
+msgid "Route"
+msgstr "工艺路线"
+
+msgctxt "view:production.work_center.category:"
+msgid "Work Center Category"
+msgstr "工作中心类别"
+
+msgctxt "view:production.work_center:"
+msgid "Work Center"
+msgstr "工作中心"
+
+msgctxt "view:production:"
+msgid "Operations"
+msgstr "交易"
