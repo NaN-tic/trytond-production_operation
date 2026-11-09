@@ -1,0 +1,355 @@
+#
+msgid ""
+msgstr ""
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "field:production,operations:"
+msgid "Operations"
+msgstr "Ügyletek"
+
+msgctxt "field:production,route:"
+msgid "Route"
+msgstr "Műveletterv"
+
+msgctxt "field:production.configuration,allow_done_production:"
+msgid "Allow Done Produciton"
+msgstr "Gyártás befejezésének engedélyezése"
+
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "Műveleti állapot ellenőrzése"
+
+msgctxt "field:production.operation,company:"
+msgid "Company"
+msgstr "Cég"
+
+msgctxt "field:production.operation,cost:"
+msgid "Cost"
+msgstr "Költség"
+
+msgctxt "field:production.operation,lines:"
+msgid "Lines"
+msgstr "Sorok"
+
+msgctxt "field:production.operation,operation_type:"
+msgid "Operation Type"
+msgstr "Ügylet típusa"
+
+msgctxt "field:production.operation,production:"
+msgid "Production"
+msgstr "gyártás"
+
+msgctxt "field:production.operation,purchase_request:"
+msgid "Purchase Request"
+msgstr "Beszerzési igény"
+
+msgctxt "field:production.operation,route_operation:"
+msgid "Route Operation"
+msgstr "Műveletterv művelete"
+
+msgctxt "field:production.operation,state:"
+msgid "State"
+msgstr "Állapot"
+
+msgctxt "field:production.operation,subcontracted_product:"
+msgid "Subcontracted product"
+msgstr "Alvállalkozói termék"
+
+msgctxt "field:production.operation,total_quantity:"
+msgid "Total Quantity"
+msgstr "Összmennyiség"
+
+msgctxt "field:production.operation,work_center:"
+msgid "Work Center"
+msgstr "Munkaközpont"
+
+msgctxt "field:production.operation,work_center_category:"
+msgid "Work Center Category"
+msgstr "Munkahelyközpont kategóriája"
+
+msgctxt "field:production.operation.tracking,company:"
+msgid "Company"
+msgstr "Cég"
+
+msgctxt "field:production.operation.tracking,cost:"
+msgid "Cost"
+msgstr "Költség"
+
+msgctxt "field:production.operation.tracking,operation:"
+msgid "Operation"
+msgstr "Számla oldala"
+
+msgctxt "field:production.operation.tracking,quantity:"
+msgid "Quantity"
+msgstr "Mennyiség"
+
+msgctxt "field:production.operation.tracking,uom:"
+msgid "Uom"
+msgstr "Mértékegység"
+
+msgctxt "field:production.operation.type,name:"
+msgid "Name"
+msgstr "Név"
+
+msgctxt "field:production.route,name:"
+msgid "Name"
+msgstr "Név"
+
+msgctxt "field:production.route,operations:"
+msgid "Operations"
+msgstr "Ügyletek"
+
+msgctxt "field:production.route.operation,operation_type:"
+msgid "Operation Type"
+msgstr "Ügylet típusa"
+
+msgctxt "field:production.route.operation,route:"
+msgid "Route"
+msgstr "Műveletterv"
+
+msgctxt "field:production.route.operation,work_center:"
+msgid "Work Center"
+msgstr "Munkaközpont"
+
+msgctxt "field:production.work_center,category:"
+msgid "Category"
+msgstr "Kategória"
+
+msgctxt "field:production.work_center,cost_price:"
+msgid "Cost Price"
+msgstr "Költségár"
+
+msgctxt "field:production.work_center,employee:"
+msgid "Employee"
+msgstr "Alkalmazott"
+
+msgctxt "field:production.work_center,name:"
+msgid "Name"
+msgstr "Név"
+
+msgctxt "field:production.work_center,type:"
+msgid "Type"
+msgstr "Típus"
+
+msgctxt "field:production.work_center,uom:"
+msgid "Uom"
+msgstr "Mértékegység"
+
+msgctxt "field:production.work_center.category,name:"
+msgid "Name"
+msgstr "Név"
+
+msgctxt "field:purchase.line,origin:"
+msgid "Origin"
+msgstr "Eredet"
+
+msgctxt "help:production.configuration,allow_done_production:"
+msgid "Allow done the productoin when finish the last operation"
+msgstr "A gyártás befejezésének engedélyezése az utolsó művelet befejezésekor"
+
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr "Műveleti állapot ellenőrzése a gyártás befejezésekor"
+
+msgctxt "model:ir.action,name:act_production_operation"
+msgid "Operation"
+msgstr "Számla oldala"
+
+msgctxt "model:ir.action,name:act_production_operation_tracking"
+msgid "Operation Tracking"
+msgstr "Műveletkövetés"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_all"
+msgid "All"
+msgstr "összes"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_planned"
+msgid "Planned"
+msgstr "Tervezve"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_running"
+msgid "Running"
+msgstr "Folyamatban"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_waiting"
+msgid "Waiting"
+msgstr "várakozik"
+
+#, python-format
+msgctxt "model:ir.message,text:invalid_production_state"
+msgid "You can not create an operation for Production \"%(production)s\"."
+msgstr "A(z) „%(production)s” gyártáshoz nem hozható létre művelet."
+
+#, python-format
+msgctxt "model:ir.message,text:no_work_center"
+msgid "We can not found any work center for  Operation \"%(operation)s\"."
+msgstr "Nem található munkaközpont a(z) „%(operation)s” művelethez."
+
+#, python-format
+msgctxt "model:ir.message,text:pending_operations"
+msgid ""
+"Production \"%(production)s\" can not be done because their operation "
+"\"%(operation)s\" is not done.'"
+msgstr ""
+"A(z) „%(production)s” gyártás nem fejezhető be, mert a(z) „%(operation)s” "
+"művelete még nincs kész."
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_missing"
+msgid ""
+"You can not finish an operation without create a purchase on Purchase "
+"request \"%(request)s\"."
+msgstr ""
+"A művelet nem fejezhető be, amíg a(z) „%(request)s” beszerzési igényhez nem "
+"hoz létre beszerzést."
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_pending"
+msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr ""
+"A művelet nem fejezhető be a(z) „%(purchase)s” beszerzés befejezése előtt."
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_request_wait"
+msgid ""
+"Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
+"purchase request\"."
+msgstr ""
+"A(z) „%(production)s” gyártás „%(operation)s” műveletéhez már van beszerzési"
+" igény."
+
+msgctxt "model:ir.model.button,string:create_purchase_request_button"
+msgid "Create Purchase Request"
+msgstr "Beszerzési igény létrehozása"
+
+msgctxt "model:ir.model.button,string:production_operation_cancel_button"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "model:ir.model.button,string:production_operation_done_button"
+msgid "Done"
+msgstr "Kész"
+
+msgctxt "model:ir.model.button,string:production_operation_run_button"
+msgid "Run"
+msgstr "Indítás"
+
+msgctxt "model:ir.model.button,string:production_operation_wait_button"
+msgid "Wait"
+msgstr "Várakozás"
+
+msgctxt "model:ir.rule.group,name:rule_group_production_operation"
+msgid "User in companies"
+msgstr "Felhasználó vállalatai"
+
+msgctxt "model:ir.rule.group,name:rule_group_production_operation_tracking"
+msgid "User in companies"
+msgstr "Felhasználó vállalatai"
+
+msgctxt "model:ir.ui.menu,name:menu_production_operation"
+msgid "Operations"
+msgstr "Ügyletek"
+
+msgctxt "model:production.operation,name:"
+msgid "Operation"
+msgstr "Számla oldala"
+
+msgctxt "model:production.operation.tracking,name:"
+msgid "operation.tracking"
+msgstr "Műveletkövetés"
+
+msgctxt "model:production.operation.type,name:"
+msgid "Operation Type"
+msgstr "Ügylet típusa"
+
+msgctxt "model:production.route,name:"
+msgid "Production Route"
+msgstr "Gyártási műveletterv"
+
+msgctxt "model:production.route.operation,name:"
+msgid "Route Operation"
+msgstr "Műveletterv művelete"
+
+msgctxt "model:production.work_center,name:"
+msgid "Work Center"
+msgstr "Munkaközpont"
+
+msgctxt "model:production.work_center.category,name:"
+msgid "Work Center Category"
+msgstr "Munkahelyközpont kategóriája"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Error"
+msgstr "Felhasználói hiba"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Warning"
+msgstr "Felhasználói figyelmeztetés"
+
+msgctxt "selection:production.operation,state:"
+msgid "Canceled"
+msgstr "Visszavonva"
+
+msgctxt "selection:production.operation,state:"
+msgid "Done"
+msgstr "Kész"
+
+msgctxt "selection:production.operation,state:"
+msgid "Planned"
+msgstr "Tervezve"
+
+msgctxt "selection:production.operation,state:"
+msgid "Running"
+msgstr "Folyamatban"
+
+msgctxt "selection:production.operation,state:"
+msgid "Waiting"
+msgstr "várakozik"
+
+msgctxt "selection:production.work_center,type:"
+msgid "Employee"
+msgstr "Alkalmazott"
+
+msgctxt "selection:production.work_center,type:"
+msgid "Machine"
+msgstr "Gép"
+
+msgctxt "view:production.operation.tracking:"
+msgid "Operation Tracking"
+msgstr "Műveletkövetés"
+
+msgctxt "view:production.operation.type:"
+msgid "Operation Type"
+msgstr "Ügylet típusa"
+
+msgctxt "view:production.operation:"
+msgid "Lines"
+msgstr "Sorok"
+
+msgctxt "view:production.route.operation:"
+msgid "Route Operation"
+msgstr "Műveletterv művelete"
+
+msgctxt "view:production.route:"
+msgid "Route"
+msgstr "Műveletterv"
+
+msgctxt "view:production.work_center.category:"
+msgid "Work Center Category"
+msgstr "Munkahelyközpont kategóriája"
+
+msgctxt "view:production.work_center:"
+msgid "Work Center"
+msgstr "Munkaközpont"
+
+msgctxt "view:production:"
+msgid "Operations"
+msgstr "Ügyletek"
