@@ -1,0 +1,352 @@
+#
+msgid ""
+msgstr ""
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:production,operations:"
+msgid "Operations"
+msgstr "ប្រតិបត្តិការ"
+
+msgctxt "field:production,route:"
+msgid "Route"
+msgstr "ផ្លូវ"
+
+msgctxt "field:production.configuration,allow_done_production:"
+msgid "Allow Done Produciton"
+msgstr "អនុញ្ញាតឱ្យបញ្ចប់ផលិតកម្ម"
+
+msgctxt "field:production.configuration,check_state_operation:"
+msgid "Check State Operation"
+msgstr "ពិនិត្យស្ថានភាពប្រតិបត្តិការ"
+
+msgctxt "field:production.operation,company:"
+msgid "Company"
+msgstr "ក្រុមហ៊ុន"
+
+msgctxt "field:production.operation,cost:"
+msgid "Cost"
+msgstr "ថ្លៃដើម"
+
+msgctxt "field:production.operation,lines:"
+msgid "Lines"
+msgstr "បន្ទាត់"
+
+msgctxt "field:production.operation,operation_type:"
+msgid "Operation Type"
+msgstr "ប្រភេទប្រតិបត្តិការ"
+
+msgctxt "field:production.operation,production:"
+msgid "Production"
+msgstr "ផលិតកម្ម"
+
+msgctxt "field:production.operation,purchase_request:"
+msgid "Purchase Request"
+msgstr "សំណើទិញ"
+
+msgctxt "field:production.operation,route_operation:"
+msgid "Route Operation"
+msgstr "ប្រតិបត្តិការក្នុងផ្លូវផលិតកម្ម"
+
+msgctxt "field:production.operation,state:"
+msgid "State"
+msgstr "ស្ថានភាព"
+
+msgctxt "field:production.operation,subcontracted_product:"
+msgid "Subcontracted product"
+msgstr "ផលិតផលផលិតតាមកិច្ចសន្យាបន្ត"
+
+msgctxt "field:production.operation,total_quantity:"
+msgid "Total Quantity"
+msgstr "បរិមាណសរុប"
+
+msgctxt "field:production.operation,work_center:"
+msgid "Work Center"
+msgstr "មជ្ឈមណ្ឌលការងារ"
+
+msgctxt "field:production.operation,work_center_category:"
+msgid "Work Center Category"
+msgstr "ប្រភេទមជ្ឈមណ្ឌលការងារ"
+
+msgctxt "field:production.operation.tracking,company:"
+msgid "Company"
+msgstr "ក្រុមហ៊ុន"
+
+msgctxt "field:production.operation.tracking,cost:"
+msgid "Cost"
+msgstr "ថ្លៃដើម"
+
+msgctxt "field:production.operation.tracking,operation:"
+msgid "Operation"
+msgstr "ប្រតិបត្តិការ"
+
+msgctxt "field:production.operation.tracking,quantity:"
+msgid "Quantity"
+msgstr "បរិមាណ"
+
+msgctxt "field:production.operation.tracking,uom:"
+msgid "Uom"
+msgstr "ឯកតារង្វាស់"
+
+msgctxt "field:production.operation.type,name:"
+msgid "Name"
+msgstr "ឈ្មោះ"
+
+msgctxt "field:production.route,name:"
+msgid "Name"
+msgstr "ឈ្មោះ"
+
+msgctxt "field:production.route,operations:"
+msgid "Operations"
+msgstr "ប្រតិបត្តិការ"
+
+msgctxt "field:production.route.operation,operation_type:"
+msgid "Operation Type"
+msgstr "ប្រភេទប្រតិបត្តិការ"
+
+msgctxt "field:production.route.operation,route:"
+msgid "Route"
+msgstr "ផ្លូវ"
+
+msgctxt "field:production.route.operation,work_center:"
+msgid "Work Center"
+msgstr "មជ្ឈមណ្ឌលការងារ"
+
+msgctxt "field:production.work_center,category:"
+msgid "Category"
+msgstr "ប្រភេទ"
+
+msgctxt "field:production.work_center,cost_price:"
+msgid "Cost Price"
+msgstr "ថ្លៃដើម"
+
+msgctxt "field:production.work_center,employee:"
+msgid "Employee"
+msgstr "និយោជិត"
+
+msgctxt "field:production.work_center,name:"
+msgid "Name"
+msgstr "ឈ្មោះ"
+
+msgctxt "field:production.work_center,type:"
+msgid "Type"
+msgstr "ប្រភេទ"
+
+msgctxt "field:production.work_center,uom:"
+msgid "Uom"
+msgstr "ឯកតារង្វាស់"
+
+msgctxt "field:production.work_center.category,name:"
+msgid "Name"
+msgstr "ឈ្មោះ"
+
+msgctxt "field:purchase.line,origin:"
+msgid "Origin"
+msgstr "ប្រភពដើម"
+
+msgctxt "help:production.configuration,allow_done_production:"
+msgid "Allow done the productoin when finish the last operation"
+msgstr "អនុញ្ញាតឱ្យបញ្ចប់ផលិតកម្មនៅពេលប្រតិបត្តិការចុងក្រោយបានបញ្ចប់"
+
+msgctxt "help:production.configuration,check_state_operation:"
+msgid "Check state operation when done a production"
+msgstr "ពិនិត្យស្ថានភាពប្រតិបត្តិការពេលបញ្ចប់ផលិតកម្ម"
+
+msgctxt "model:ir.action,name:act_production_operation"
+msgid "Operation"
+msgstr "ប្រតិបត្តិការ"
+
+msgctxt "model:ir.action,name:act_production_operation_tracking"
+msgid "Operation Tracking"
+msgstr "ការតាមដានប្រតិបត្តិការ"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_all"
+msgid "All"
+msgstr "ទាំងអស់"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_planned"
+msgid "Planned"
+msgstr "បានគ្រោងទុក"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_running"
+msgid "Running"
+msgstr "កំពុងដំណើរការ"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_production_operation_domain_waiting"
+msgid "Waiting"
+msgstr "កំពុងរង់ចាំ"
+
+#, python-format
+msgctxt "model:ir.message,text:invalid_production_state"
+msgid "You can not create an operation for Production \"%(production)s\"."
+msgstr "មិនអាចបង្កើតប្រតិបត្តិការសម្រាប់ផលិតកម្ម «%(production)s» បានទេ។"
+
+#, python-format
+msgctxt "model:ir.message,text:no_work_center"
+msgid "We can not found any work center for  Operation \"%(operation)s\"."
+msgstr "រកមិនឃើញមជ្ឈមណ្ឌលការងារសម្រាប់ប្រតិបត្តិការ «%(operation)s» ទេ។"
+
+#, python-format
+msgctxt "model:ir.message,text:pending_operations"
+msgid ""
+"Production \"%(production)s\" can not be done because their operation "
+"\"%(operation)s\" is not done.'"
+msgstr ""
+"មិនអាចបញ្ចប់ផលិតកម្ម «%(production)s» បានទេ ព្រោះប្រតិបត្តិការ "
+"«%(operation)s» មិនទាន់បញ្ចប់។"
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_missing"
+msgid ""
+"You can not finish an operation without create a purchase on Purchase request"
+" \"%(request)s\"."
+msgstr "មិនអាចបញ្ចប់ប្រតិបត្តិការបានទេ មុនបង្កើតការទិញពីសំណើទិញ «%(request)s»។"
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_pending"
+msgid "You can not finish an operation without finish  purchase \"%(purchase)s\"."
+msgstr "មិនអាចបញ្ចប់ប្រតិបត្តិការបានទេ មុនបញ្ចប់ការទិញ «%(purchase)s»។"
+
+#, python-format
+msgctxt "model:ir.message,text:purchase_request_wait"
+msgid ""
+"Operation \"%(operation)s\" on Production \"%(production)s\" already has a "
+"purchase request\"."
+msgstr ""
+"ប្រតិបត្តិការ «%(operation)s» ក្នុងផលិតកម្ម «%(production)s» "
+"មានសំណើទិញរួចហើយ។"
+
+msgctxt "model:ir.model.button,string:create_purchase_request_button"
+msgid "Create Purchase Request"
+msgstr "បង្កើតសំណើទិញ"
+
+msgctxt "model:ir.model.button,string:production_operation_cancel_button"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "model:ir.model.button,string:production_operation_done_button"
+msgid "Done"
+msgstr "បានបញ្ចប់"
+
+msgctxt "model:ir.model.button,string:production_operation_run_button"
+msgid "Run"
+msgstr "ដំណើរការ"
+
+msgctxt "model:ir.model.button,string:production_operation_wait_button"
+msgid "Wait"
+msgstr "រង់ចាំ"
+
+msgctxt "model:ir.rule.group,name:rule_group_production_operation"
+msgid "User in companies"
+msgstr "អ្នកប្រើប្រាស់ក្នុងក្រុមហ៊ុន"
+
+msgctxt "model:ir.rule.group,name:rule_group_production_operation_tracking"
+msgid "User in companies"
+msgstr "អ្នកប្រើប្រាស់ក្នុងក្រុមហ៊ុន"
+
+msgctxt "model:ir.ui.menu,name:menu_production_operation"
+msgid "Operations"
+msgstr "ប្រតិបត្តិការ"
+
+msgctxt "model:production.operation,name:"
+msgid "Operation"
+msgstr "ប្រតិបត្តិការ"
+
+msgctxt "model:production.operation.tracking,name:"
+msgid "operation.tracking"
+msgstr "operation.tracking"
+
+msgctxt "model:production.operation.type,name:"
+msgid "Operation Type"
+msgstr "ប្រភេទប្រតិបត្តិការ"
+
+msgctxt "model:production.route,name:"
+msgid "Production Route"
+msgstr "ផ្លូវផលិតកម្ម"
+
+msgctxt "model:production.route.operation,name:"
+msgid "Route Operation"
+msgstr "ប្រតិបត្តិការក្នុងផ្លូវផលិតកម្ម"
+
+msgctxt "model:production.work_center,name:"
+msgid "Work Center"
+msgstr "មជ្ឈមណ្ឌលការងារ"
+
+msgctxt "model:production.work_center.category,name:"
+msgid "Work Center Category"
+msgstr "ប្រភេទមជ្ឈមណ្ឌលការងារ"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Error"
+msgstr "កំហុសអ្នកប្រើប្រាស់"
+
+msgctxt "selection:production.configuration,check_state_operation:"
+msgid "User Warning"
+msgstr "ការព្រមានសម្រាប់អ្នកប្រើ"
+
+msgctxt "selection:production.operation,state:"
+msgid "Canceled"
+msgstr "បានបោះបង់"
+
+msgctxt "selection:production.operation,state:"
+msgid "Done"
+msgstr "បានបញ្ចប់"
+
+msgctxt "selection:production.operation,state:"
+msgid "Planned"
+msgstr "បានគ្រោងទុក"
+
+msgctxt "selection:production.operation,state:"
+msgid "Running"
+msgstr "កំពុងដំណើរការ"
+
+msgctxt "selection:production.operation,state:"
+msgid "Waiting"
+msgstr "កំពុងរង់ចាំ"
+
+msgctxt "selection:production.work_center,type:"
+msgid "Employee"
+msgstr "និយោជិត"
+
+msgctxt "selection:production.work_center,type:"
+msgid "Machine"
+msgstr "ម៉ាស៊ីន"
+
+msgctxt "view:production.operation.tracking:"
+msgid "Operation Tracking"
+msgstr "ការតាមដានប្រតិបត្តិការ"
+
+msgctxt "view:production.operation.type:"
+msgid "Operation Type"
+msgstr "ប្រភេទប្រតិបត្តិការ"
+
+msgctxt "view:production.operation:"
+msgid "Lines"
+msgstr "បន្ទាត់"
+
+msgctxt "view:production.route.operation:"
+msgid "Route Operation"
+msgstr "ប្រតិបត្តិការក្នុងផ្លូវផលិតកម្ម"
+
+msgctxt "view:production.route:"
+msgid "Route"
+msgstr "ផ្លូវ"
+
+msgctxt "view:production.work_center.category:"
+msgid "Work Center Category"
+msgstr "ប្រភេទមជ្ឈមណ្ឌលការងារ"
+
+msgctxt "view:production.work_center:"
+msgid "Work Center"
+msgstr "មជ្ឈមណ្ឌលការងារ"
+
+msgctxt "view:production:"
+msgid "Operations"
+msgstr "ប្រតិបត្តិការ"
